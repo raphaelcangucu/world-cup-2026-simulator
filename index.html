@@ -4,123 +4,133 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>macro.markets | World Cup 2026 Outcome Simulator</title>
-  <meta name="description" content="World Cup 2026 simulator with macro.markets-style panels, yes/no style match inputs, and a shareable full tournament state." />
+  <meta name="description" content="World Cup 2026 simulator with macro.markets-style market rows, cards, spacing, and shareable tournament state." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <aside class="rail" aria-label="macro sidebar">
-      <div class="rail-logo">∞</div>
-      <div class="rail-dots">
-        <span></span><span></span><span></span><span></span><span></span>
+  <div class="layout-shell">
+    <aside class="menu-rail" aria-label="Macro Markets sidebar">
+      <div class="menu-header">
+        <div class="rail-logo">∞</div>
+      </div>
+      <div class="menu-body">
+        <button class="menu-icon active"></button>
+        <button class="menu-icon"></button>
+        <button class="menu-icon"></button>
+        <button class="menu-icon"></button>
+        <button class="menu-icon"></button>
       </div>
     </aside>
 
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="header-branding">
-          <a class="brand-lockup" href="#groupsSection" aria-label="macro.markets World Cup simulator home">
-            <span class="brand-mark"></span>
-            <span>
+    <div class="app-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <a class="brand" href="#groupsSection" aria-label="macro.markets World Cup simulator home">
+            <span class="brand-dot"></span>
+            <div>
               <strong>macro.markets</strong>
               <small>World Cup 2026 simulator</small>
-            </span>
+            </div>
           </a>
-          <div class="header-pills">
-            <span class="header-pill header-pill-active">Popular</span>
-            <span class="header-pill">Sport</span>
+        </div>
+
+        <div class="topbar-center">
+          <div class="search-shell">
+            <span class="search-icon">⌕</span>
+            <span class="search-placeholder">Search markets</span>
           </div>
         </div>
-        <div class="header-actions">
-          <button class="icon-btn" aria-label="Search">⌕</button>
-          <button class="link-btn">Log In</button>
-          <button class="btn btn-register" id="shareBtn">Register</button>
+
+        <div class="topbar-right">
+          <button class="ghost-btn">Log In</button>
+          <button class="primary-btn" id="shareBtn">Register</button>
         </div>
       </header>
 
-      <section class="hero-market market-surface">
-        <div class="market-hero-head">
-          <div class="market-badge">⚽</div>
-          <div>
-            <p class="eyebrow">World Cup 2026</p>
-            <h1>FIFA World Cup 2026 Simulator</h1>
+      <div class="content-grid">
+        <aside class="left-menu market-panel">
+          <div class="menu-section-title">Markets</div>
+          <div class="menu-list">
+            <a class="menu-link active" href="#groupsSection">Group stage</a>
+            <a class="menu-link" href="#qualifiersSection">Qualifiers</a>
+            <a class="menu-link" href="#knockoutSection">Knockout</a>
+            <a class="menu-link" href="#championSection">Champion</a>
           </div>
-        </div>
-        <p class="market-description">Configure every group-stage match, rank the best third-place teams, and advance the knockout bracket with the same visual language as macro.markets markets.</p>
-        <p class="status" id="shareStatus">Ready to build your market view.</p>
+          <div class="menu-section-title">Simulator</div>
+          <div class="menu-list muted-list">
+            <span>12 groups</span>
+            <span>Top 2 + best 8 thirds</span>
+            <span>Round of 32 bracket</span>
+          </div>
+        </aside>
 
-        <div class="hero-toolbar">
-          <button class="soft-action" id="copyBtn">Copy link</button>
-          <button class="soft-action" id="resetBtn">Reset</button>
-        </div>
-
-        <div class="hero-stats" id="heroStats"></div>
-      </section>
-
-      <nav class="section-nav market-toolbar" id="stepNav"></nav>
-
-      <main class="main-stack">
-        <section class="market-section" id="groupsSection">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker">Group stage</p>
-              <h2>Market-style score inputs</h2>
+        <main class="main-column">
+          <section class="hero-card market-panel">
+            <div class="hero-head">
+              <div class="hero-badge">⚽</div>
+              <div>
+                <p class="eyebrow">World Cup 2026</p>
+                <h1>FIFA World Cup 2026 Simulator</h1>
+                <p class="hero-copy">Agora com estrutura visual bem mais literal do macro.markets, especialmente em market rows, inputs, botões e densidade dos painéis.</p>
+              </div>
             </div>
-            <div class="group-pager" id="groupPager"></div>
-          </div>
-          <div id="groupsContainer"></div>
-        </section>
 
-        <section class="market-section" id="qualifiersSection">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker">Qualification model</p>
-              <h2>Auto qualifiers and best third-place board</h2>
+            <div class="hero-actions">
+              <button class="secondary-btn" id="copyBtn">Copy link</button>
+              <button class="secondary-btn" id="resetBtn">Reset</button>
             </div>
-          </div>
-          <div id="qualifiersContainer"></div>
-        </section>
 
-        <section class="market-section" id="knockoutSection">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker">Knockout bracket</p>
-              <h2>Advance winners market by market</h2>
+            <p class="status" id="shareStatus">Ready to build your market view.</p>
+            <div class="hero-stats" id="heroStats"></div>
+          </section>
+
+          <nav class="section-nav" id="stepNav"></nav>
+
+          <section class="market-panel section-panel" id="groupsSection">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Group stage</p>
+                <h2>Market rows</h2>
+              </div>
+              <div class="group-pager" id="groupPager"></div>
             </div>
-          </div>
-          <div id="knockoutContainer"></div>
-        </section>
+            <div id="groupsContainer"></div>
+          </section>
 
-        <section class="market-section" id="championSection">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker">Champion projection</p>
-              <h2>Final market outcome</h2>
+          <section class="market-panel section-panel" id="qualifiersSection">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Qualification model</p>
+                <h2>Seeds and best third-place board</h2>
+              </div>
             </div>
-          </div>
-          <div id="championContainer"></div>
-        </section>
-      </main>
+            <div id="qualifiersContainer"></div>
+          </section>
 
-      <footer class="site-footer market-surface">
-        <div class="footer-col">
-          <h3>Market</h3>
-          <a href="#groupsSection">Groups</a>
-          <a href="#qualifiersSection">Qualifiers</a>
-        </div>
-        <div class="footer-col">
-          <h3>About</h3>
-          <a href="#knockoutSection">Knockout</a>
-          <a href="#championSection">Champion</a>
-        </div>
-        <div class="footer-col">
-          <h3>Support</h3>
-          <span>Static simulator, shareable state, macro-style shell.</span>
-        </div>
-      </footer>
+          <section class="market-panel section-panel" id="knockoutSection">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Knockout</p>
+                <h2>Advance each market</h2>
+              </div>
+            </div>
+            <div id="knockoutContainer"></div>
+          </section>
+
+          <section class="market-panel section-panel" id="championSection">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Champion</p>
+                <h2>Final outcome</h2>
+              </div>
+            </div>
+            <div id="championContainer"></div>
+          </section>
+        </main>
+      </div>
     </div>
   </div>
 
