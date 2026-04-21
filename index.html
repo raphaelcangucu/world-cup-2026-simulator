@@ -1,90 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>macro.markets | World Cup 2026 Outcome Simulator</title>
-  <meta name="description" content="Simule cenários da Copa do Mundo 2026, projete classificados e compartilhe seu palpite por link." />
+  <meta name="description" content="Model World Cup 2026 group tables, best third-place teams, and every knockout path in a premium macro.markets experience." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+
   <div class="app-shell">
-    <header class="hero card">
-      <div>
-        <p class="eyebrow">macro.markets</p>
-        <h1>World Cup 2026 outcome simulator</h1>
-        <p class="lede">Preencha placares, acompanhe os melhores terceiros no formato oficial da FIFA e navegue o caminho completo até o campeão.</p>
+    <header class="hero panel">
+      <div class="hero-copy">
+        <div class="brand-row">
+          <span class="brand-pill">macro.markets</span>
+          <span class="meta-pill">World Cup 2026 simulator</span>
+        </div>
+        <h1>Price every World Cup path, from group chaos to the final trade.</h1>
+        <p class="lede">Project every scoreline, rank the eight best third-place finishers with the official tiebreak stack, and route the full bracket through to your champion.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="shareBtn">Share scenario</button>
+          <button class="btn" id="copyBtn">Copy link</button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="status" id="shareStatus">Ready to build your market view.</p>
       </div>
-      <div class="hero-actions">
-        <button class="btn btn-primary" id="shareBtn">Compartilhar palpite</button>
-        <button class="btn" id="copyBtn">Copiar link</button>
-        <button class="btn btn-ghost" id="resetBtn">Resetar cenário</button>
-      </div>
-      <p class="status" id="shareStatus">Pronto para montar seu cenário.</p>
+
+      <aside class="hero-side panel panel-nested">
+        <p class="section-kicker">Live board</p>
+        <div class="hero-stats" id="heroStats"></div>
+      </aside>
     </header>
 
-    <nav class="step-nav card" id="stepNav"></nav>
+    <nav class="section-nav panel" id="stepNav"></nav>
 
-    <main>
-      <section class="section card" id="intro">
-        <div class="section-head">
-          <span class="section-kicker">01</span>
-          <h2>Como ler o simulador</h2>
-        </div>
-        <div class="intro-grid">
-          <div>
-            <h3>Fase de grupos</h3>
-            <p>Atualização automática de pontos, saldo, gols pró e desempates oficiais, com reaplicação do confronto direto quando houver empates múltiplos.</p>
-          </div>
-          <div>
-            <h3>Best third outcomes</h3>
-            <p>Os oito melhores terceiros são ranqueados por pontos, saldo, gols pró, fair play simplificado e ranking FIFA como fallback.</p>
-          </div>
-          <div>
-            <h3>Mata-mata</h3>
-            <p>O Round of 32 usa o mapeamento oficial do Anexo C da FIFA, com 495 combinações possíveis para os terceiros.</p>
-          </div>
-          <div>
-            <h3>URL compartilhável</h3>
-            <p>Todo o estado do torneio é serializado na URL, então o link reabre exatamente o mesmo palpite.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section card" id="groupsSection">
+    <main class="main-grid">
+      <section class="panel section" id="groupsSection">
         <div class="section-head sticky-head">
           <div>
-            <span class="section-kicker">02</span>
-            <h2>Fase de grupos</h2>
+            <p class="section-kicker">Group stage</p>
+            <h2>Scoreboard input</h2>
           </div>
           <div class="group-pager" id="groupPager"></div>
         </div>
         <div id="groupsContainer"></div>
       </section>
 
-      <section class="section card" id="qualifiersSection">
+      <section class="panel section" id="qualifiersSection">
         <div class="section-head">
-          <span class="section-kicker">03</span>
-          <h2>Classificados e melhores terceiros</h2>
+          <div>
+            <p class="section-kicker">Qualification model</p>
+            <h2>Qualified teams and best third-place routing</h2>
+          </div>
         </div>
         <div id="qualifiersContainer"></div>
       </section>
 
-      <section class="section card" id="knockoutSection">
+      <section class="panel section" id="knockoutSection">
         <div class="section-head">
-          <span class="section-kicker">04</span>
-          <h2>Mata-mata</h2>
+          <div>
+            <p class="section-kicker">Knockout bracket</p>
+            <h2>Advance every winner</h2>
+          </div>
         </div>
         <div id="knockoutContainer"></div>
       </section>
 
-      <section class="section card" id="championSection">
+      <section class="panel section" id="championSection">
         <div class="section-head">
-          <span class="section-kicker">05</span>
-          <h2>Champion outcome</h2>
+          <div>
+            <p class="section-kicker">Market close</p>
+            <h2>Champion projection</h2>
+          </div>
         </div>
         <div id="championContainer"></div>
       </section>
