@@ -4,50 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>macro.markets | World Cup 2026 Outcome Simulator</title>
-  <meta name="description" content="Model World Cup 2026 group tables, best third-place teams, and every knockout path in a premium macro.markets light-mode experience." />
+  <meta name="description" content="Model World Cup 2026 group tables, best third-place teams, and every knockout path in a cleaner macro.markets-inspired light dashboard." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <div class="page-noise"></div>
-    <header class="topbar">
-      <div class="topbar-brand">
-        <span class="brand-dot"></span>
-        <span class="brand-name">macro.markets</span>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="header-branding">
+        <a class="brand-lockup" href="#groupsSection" aria-label="macro.markets World Cup simulator home">
+          <span class="brand-mark"></span>
+          <span>
+            <strong>macro.markets</strong>
+            <small>World Cup 2026 simulator</small>
+          </span>
+        </a>
+        <div class="header-tagline">Tournament scenario desk</div>
       </div>
-      <div class="topbar-meta">World Cup 2026 simulator</div>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="shareBtn">Share</button>
+        <button class="btn" id="copyBtn">Copy link</button>
+        <button class="btn btn-subtle" id="resetBtn">Reset</button>
+      </div>
     </header>
 
-    <section class="hero-slab panel">
+    <section class="hero-panel panel">
       <div class="hero-copy">
         <div class="eyebrow-row">
-          <span class="eyebrow">Light market board</span>
-          <span class="eyebrow eyebrow-soft">48-team format</span>
+          <span class="eyebrow">48-team format</span>
+          <span class="eyebrow eyebrow-muted">literal macro layout</span>
         </div>
-        <h1>Track every group, every route, every World Cup title path.</h1>
-        <p class="lede">A macro.markets-style board for World Cup 2026. Price the group stage, lock the best third-place teams, and move the bracket through to the final whistle.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" id="shareBtn">Share scenario</button>
-          <button class="btn" id="copyBtn">Copy link</button>
-          <button class="btn btn-ghost" id="resetBtn">Reset</button>
-        </div>
+        <h1>World Cup 2026 outcome simulator</h1>
+        <p class="hero-lede">Set every scoreline, track the eight best third-place teams, and push the bracket all the way to the trophy in one clean market-board view.</p>
         <p class="status" id="shareStatus">Ready to build your market view.</p>
       </div>
 
-      <aside class="hero-side">
-        <div class="stadium-card">
-          <div class="stadium-glow"></div>
-          <div class="stadium-pitch"></div>
-          <div class="stadium-spot"></div>
-          <div class="trophy-badge">🏆</div>
-          <div class="stadium-copy">
-            <p class="section-kicker">Matchday desk</p>
-            <h2>Live tournament board</h2>
-            <p>Inspired by macro.markets light mode, with a cleaner dashboard feel for desktop and mobile.</p>
-          </div>
+      <aside class="hero-aside">
+        <div class="hero-note card-lite">
+          <p class="section-kicker">How it works</p>
+          <h2>Input groups, review qualifiers, lock winners</h2>
+          <p>All simulator logic stays intact. The layout is rebuilt to feel closer to a restrained product dashboard, with lighter surfaces and tighter framing.</p>
         </div>
         <div class="hero-stats" id="heroStats"></div>
       </aside>
@@ -55,12 +53,12 @@
 
     <nav class="section-nav panel" id="stepNav"></nav>
 
-    <main class="content-stack">
+    <main class="main-stack">
       <section class="panel section" id="groupsSection">
         <div class="section-head sticky-head">
           <div>
             <p class="section-kicker">Group stage</p>
-            <h2>Scoreboard input</h2>
+            <h2>Scoreboard inputs</h2>
           </div>
           <div class="group-pager" id="groupPager"></div>
         </div>
@@ -71,7 +69,7 @@
         <div class="section-head">
           <div>
             <p class="section-kicker">Qualification model</p>
-            <h2>Qualified teams and best third-place routing</h2>
+            <h2>Automatic qualifiers and third-place routing</h2>
           </div>
         </div>
         <div id="qualifiersContainer"></div>
@@ -81,7 +79,7 @@
         <div class="section-head">
           <div>
             <p class="section-kicker">Knockout bracket</p>
-            <h2>Advance every winner</h2>
+            <h2>Advance each match winner</h2>
           </div>
         </div>
         <div id="knockoutContainer"></div>
@@ -90,8 +88,8 @@
       <section class="panel section" id="championSection">
         <div class="section-head">
           <div>
-            <p class="section-kicker">Market close</p>
-            <h2>Champion projection</h2>
+            <p class="section-kicker">Champion projection</p>
+            <h2>Final market outcome</h2>
           </div>
         </div>
         <div id="championContainer"></div>

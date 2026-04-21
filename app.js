@@ -88,6 +88,7 @@ async function init() {
   buildDefaultState();
   renderNav();
   bindTopActions();
+  window.addEventListener("hashchange", renderNavActive);
   try {
     await loadThirdMap();
     restoreState();
@@ -205,9 +206,10 @@ function recomputeAndRender() {
 }
 
 function renderNavActive() {
+  const currentSection = location.hash.replace(/^#/, "") || "groupsSection";
   document.querySelectorAll(".nav-link").forEach(link => {
     const target = link.getAttribute("href")?.slice(1);
-    link.classList.toggle("active", target === state.activeGroup || target === "groupsSection");
+    link.classList.toggle("active", target === currentSection);
   });
 }
 
@@ -435,11 +437,19 @@ function renderGroups() {
         </div>
         <div class="group-layout">
           <div class="market-card">
+            <div class="card-head">
+              <p class="mini-kicker">Fixtures</p>
+              <h3>Matchday inputs</h3>
+            </div>
             <div class="match-list">
               ${GROUP_FIXTURES[group].map((fixture, index) => renderGroupMatch(group, index, fixture)).join("")}
             </div>
           </div>
           <div class="table-wrap">
+            <div class="card-head">
+              <p class="mini-kicker">Table</p>
+              <h3>Live standings</h3>
+            </div>
             <div class="table-header">
               <div>Team</div><div>Pts</div><div>W</div><div>D</div><div>L</div><div>GF</div><div>GA</div><div>GD</div>
             </div>
@@ -482,14 +492,14 @@ function renderQualifiers() {
   document.getElementById("qualifiersContainer").innerHTML = `
     <div class="summary-grid">
       <div class="summary-card">
-        <h3>Qualified teams</h3>
+        <div class="card-head"><p class="mini-kicker">Seeds</p><h3>Qualified teams</h3></div>
         ${Object.keys(GROUPS).map(group => {
           const table = derived.groupTables[group];
           return `<div class="seed-row"><div>${group}</div><div>${table[0].team}<br><span class="small">Runner-up: ${table[1].team}</span></div><div class="small">Third: ${table[2].team}</div></div>`;
         }).join("")}
       </div>
       <div class="summary-card">
-        <h3>Third-place ranking</h3>
+        <div class="card-head"><p class="mini-kicker">Ranking</p><h3>Third-place table</h3></div>
         <div class="third-board">
           ${derived.rankedThirds.map((row, index) => `
             <div class="seed-row ${index < 8 ? "live" : ""}">
@@ -500,7 +510,7 @@ function renderQualifiers() {
         </div>
       </div>
       <div class="summary-card">
-        <h3>Official routing map</h3>
+        <div class="card-head"><p class="mini-kicker">Routing</p><h3>Official third-place map</h3></div>
         <p class="inline-note">Qualified third-place groups: <strong>${derived.qualifiedGroupsKey ? derived.qualifiedGroupsKey.split("").join(", ") : "Awaiting data"}</strong></p>
         <div class="third-board" style="margin-top:12px;">
           ${Object.entries(derived.thirdAssignments).length
@@ -523,7 +533,7 @@ function renderKnockout() {
 
   document.getElementById("knockoutContainer").innerHTML = `<div class="knockout-grid">${rounds.map(round => `
     <div class="round-col">
-      <div class="market-card"><h3>${round.title}</h3></div>
+      <div class="market-card round-header"><p class="mini-kicker">Bracket</p><h3>${round.title}</h3></div>
       <div class="round-stack">${derived.matches[round.key].map(renderKnockoutMatch).join("")}</div>
     </div>`).join("")}</div>`;
 
