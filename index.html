@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>macro.markets | World Cup 2026 Outcome Simulator</title>
+  <meta name="description" content="Simule cenários da Copa do Mundo 2026, projete classificados e compartilhe seu palpite por link." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero card">
+      <div>
+        <p class="eyebrow">macro.markets</p>
+        <h1>World Cup 2026 outcome simulator</h1>
+        <p class="lede">Preencha placares, acompanhe os melhores terceiros no formato oficial da FIFA e navegue o caminho completo até o campeão.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="shareBtn">Compartilhar palpite</button>
+        <button class="btn" id="copyBtn">Copiar link</button>
+        <button class="btn btn-ghost" id="resetBtn">Resetar cenário</button>
+      </div>
+      <p class="status" id="shareStatus">Pronto para montar seu cenário.</p>
+    </header>
+
+    <nav class="step-nav card" id="stepNav"></nav>
+
+    <main>
+      <section class="section card" id="intro">
+        <div class="section-head">
+          <span class="section-kicker">01</span>
+          <h2>Como ler o simulador</h2>
+        </div>
+        <div class="intro-grid">
+          <div>
+            <h3>Fase de grupos</h3>
+            <p>Atualização automática de pontos, saldo, gols pró e desempates oficiais, com reaplicação do confronto direto quando houver empates múltiplos.</p>
+          </div>
+          <div>
+            <h3>Best third outcomes</h3>
+            <p>Os oito melhores terceiros são ranqueados por pontos, saldo, gols pró, fair play simplificado e ranking FIFA como fallback.</p>
+          </div>
+          <div>
+            <h3>Mata-mata</h3>
+            <p>O Round of 32 usa o mapeamento oficial do Anexo C da FIFA, com 495 combinações possíveis para os terceiros.</p>
+          </div>
+          <div>
+            <h3>URL compartilhável</h3>
+            <p>Todo o estado do torneio é serializado na URL, então o link reabre exatamente o mesmo palpite.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card" id="groupsSection">
+        <div class="section-head sticky-head">
+          <div>
+            <span class="section-kicker">02</span>
+            <h2>Fase de grupos</h2>
+          </div>
+          <div class="group-pager" id="groupPager"></div>
+        </div>
+        <div id="groupsContainer"></div>
+      </section>
+
+      <section class="section card" id="qualifiersSection">
+        <div class="section-head">
+          <span class="section-kicker">03</span>
+          <h2>Classificados e melhores terceiros</h2>
+        </div>
+        <div id="qualifiersContainer"></div>
+      </section>
+
+      <section class="section card" id="knockoutSection">
+        <div class="section-head">
+          <span class="section-kicker">04</span>
+          <h2>Mata-mata</h2>
+        </div>
+        <div id="knockoutContainer"></div>
+      </section>
+
+      <section class="section card" id="championSection">
+        <div class="section-head">
+          <span class="section-kicker">05</span>
+          <h2>Champion outcome</h2>
+        </div>
+        <div id="championContainer"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
