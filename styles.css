@@ -241,10 +241,20 @@ h1, h2, h3, p { margin: 0; }
   margin-bottom: 18px;
 }
 
+.menu-nav {
+  position: sticky;
+  top: 0;
+}
+
 .menu-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 42px;
   padding: 10px 12px;
   background: var(--accent);
   border: 0;
+  border-radius: 10px;
 }
 
 .menu-link.active {
@@ -445,32 +455,39 @@ h3 {
   margin-right: 8px;
 }
 
-.team-market-line {
+.match-row-clean {
   display: grid;
-  grid-template-columns: 6fr 3fr 3.2fr 2.4fr 2.4fr;
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
   align-items: center;
-  width: 100%;
-  padding: 0 20px 10px;
+  padding: 0 16px 14px;
 }
 
-.team-market-line + .team-market-line {
-  padding-top: 2px;
+.team-cell {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
 }
 
 .team-name {
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 700;
+  line-height: 1.2;
 }
 
-.team-chance {
+.away-team {
+  color: var(--text-secondary);
+}
+
+.score-pair-card {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  color: var(--text-secondary);
-  font-size: 1.7rem;
-  font-weight: 700;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  background: #f7f8fa;
+  border: 1px solid var(--divider);
 }
 
 .score-stack {
@@ -508,27 +525,6 @@ h3 {
   pointer-events: none;
 }
 
-.yes-pill,
-.no-pill {
-  min-height: 48px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .98rem;
-  font-weight: 700;
-  padding: 0 10px;
-}
-
-.yes-pill {
-  background: var(--market-yes-bg);
-  color: var(--market-yes-text);
-}
-
-.no-pill {
-  background: var(--market-no-bg);
-  color: var(--market-no-text);
-}
 
 .table-wrap {
   border: 1px solid var(--divider);
@@ -683,22 +679,12 @@ h3 {
     display: none;
   }
 
-  .team-market-line {
-    grid-template-columns: 1fr 90px;
+  .match-row-clean {
+    grid-template-columns: 1fr;
   }
 
-  .score-stack {
-    grid-column: 1 / -1;
-  }
-
-  .yes-pill,
-  .no-pill {
-    min-height: 42px;
-    font-size: .9rem;
-  }
-
-  .team-chance {
-    justify-content: flex-end;
-    font-size: 1.2rem;
+  .score-pair-card {
+    width: 100%;
+    justify-content: center;
   }
 }

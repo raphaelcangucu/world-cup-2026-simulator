@@ -190,7 +190,7 @@ function setStatus(text) {
 }
 
 function renderNav() {
-  document.getElementById("stepNav").innerHTML = NAV_STEPS.map(step => `<a class="nav-link" href="#${step.id}">${step.label}</a>`).join("");
+  document.getElementById("stepNav").innerHTML = NAV_STEPS.map(step => `<a class="nav-link" href="#${step.id}" data-section-link="${step.id}">${step.label}</a>`).join("");
 }
 
 function recomputeAndRender() {
@@ -207,9 +207,8 @@ function recomputeAndRender() {
 
 function renderNavActive() {
   const currentSection = location.hash.replace(/^#/, "") || "groupsSection";
-  document.querySelectorAll(".nav-link").forEach(link => {
-    const target = link.getAttribute("href")?.slice(1);
-    link.classList.toggle("active", target === currentSection);
+  document.querySelectorAll("[data-section-link]").forEach(link => {
+    link.classList.toggle("active", link.dataset.sectionLink === currentSection);
   });
 }
 
@@ -481,8 +480,6 @@ function renderGroups() {
 function renderGroupMatch(group, index, fixture) {
   const matchId = `${group}-${index}`;
   const value = state.groupMatches[matchId];
-  const homeChance = deriveChance(group, fixture[0]);
-  const awayChance = deriveChance(group, fixture[1]);
   return `
     <div class="match-card">
       <div class="market-meta-row">
@@ -491,23 +488,16 @@ function renderGroupMatch(group, index, fixture) {
           <div class="match-card-subtitle">${fixture[0]} vs ${fixture[1]}</div>
         </div>
       </div>
-      <div class="team-market-line">
-        <div class="team-name">${fixture[0]}</div>
-        <div class="team-chance">${homeChance}%</div>
-        <div class="score-stack">
+      <div class="match-row-clean">
+        <div class="team-cell">
+          <div class="team-name">${fixture[0]}</div>
+          <div class="team-name away-team">${fixture[1]}</div>
+        </div>
+        <div class="score-pair-card">
           <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="home" value="${value.home}" aria-label="${fixture[0]} goals">
           <span class="score-x">x</span>
           <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="away" value="${value.away}" aria-label="${fixture[1]} goals">
         </div>
-        <div class="yes-pill">Yes ${homeChance}</div>
-        <div class="no-pill">No ${Math.max(1, 100 - homeChance)}</div>
-      </div>
-      <div class="team-market-line">
-        <div class="team-name">${fixture[1]}</div>
-        <div class="team-chance">${awayChance}%</div>
-        <div class="score-stack muted-score">&nbsp;</div>
-        <div class="yes-pill">Yes ${awayChance}</div>
-        <div class="no-pill">No ${Math.max(1, 100 - awayChance)}</div>
       </div>
     </div>`;
 }
@@ -579,30 +569,21 @@ function renderKnockoutMatch(match) {
   const lockedWinner = getMatchWinner(match);
   const teamsKnown = match.homeTeam !== "TBD" && match.awayTeam !== "TBD";
   const tie = isScoreReady(match.home) && isScoreReady(match.away) && Number(match.home) === Number(match.away);
-  const winnerText = lockedWinner === "TBD" ? (teamsKnown ? "Choose the advancer when scores are level, or enter a winning score." : "Waiting for prior round.") : `Advances: ${lockedWinner}`;
-  const homeChance = deriveKnockoutChance(match.homeTeam, match.awayTeam, true);
-  const awayChance = deriveKnockoutChance(match.homeTeam, match.awayTeam, false);
+  const winnerText = lockedWinner === "TBD" ? (teamsKnown ? "Escolha o classificado em caso de empate, ou coloque um placar vencedor." : "Aguardando rodada anterior.") : `Classificado: ${lockedWinner}`;
 
   return `
     <div class="bracket-card ${lockedWinner !== "TBD" ? "winner-locked" : ""}">
       <div class="market-meta-row"><div><div class="match-card-title">${match.id}</div><div class="match-card-subtitle">${match.label || "Knockout"}</div></div></div>
-      <div class="team-market-line ${teamsKnown ? "" : "is-disabled"}">
-        <div class="team-name">${match.homeTeam}</div>
-        <div class="team-chance">${teamsKnown ? `${homeChance}%` : "-"}</div>
-        <div class="score-stack">
+      <div class="match-row-clean ${teamsKnown ? "" : "is-disabled"}">
+        <div class="team-cell">
+          <div class="team-name">${match.homeTeam}</div>
+          <div class="team-name away-team">${match.awayTeam}</div>
+        </div>
+        <div class="score-pair-card">
           <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="home" value="${match.home}" ${teamsKnown ? "" : "disabled"} aria-label="${match.homeTeam} goals">
           <span class="score-x">x</span>
           <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="away" value="${match.away}" ${teamsKnown ? "" : "disabled"} aria-label="${match.awayTeam} goals">
         </div>
-        <div class="yes-pill">Yes ${teamsKnown ? homeChance : "-"}</div>
-        <div class="no-pill">No ${teamsKnown ? Math.max(1, 100 - homeChance) : "-"}</div>
-      </div>
-      <div class="team-market-line ${teamsKnown ? "" : "is-disabled"}">
-        <div class="team-name">${match.awayTeam}</div>
-        <div class="team-chance">${teamsKnown ? `${awayChance}%` : "-"}</div>
-        <div class="score-stack muted-score">&nbsp;</div>
-        <div class="yes-pill">Yes ${teamsKnown ? awayChance : "-"}</div>
-        <div class="no-pill">No ${teamsKnown ? Math.max(1, 100 - awayChance) : "-"}</div>
       </div>
       ${tie && teamsKnown ? `
         <div class="winner-picker">
@@ -657,24 +638,6 @@ function updateScoreState(target, matchId, side, rawValue, knockout = false) {
 function findCurrentTeam(matchId, home) {
   const match = ["R32", "R16", "QF", "SF", "F"].flatMap(round => derived?.matches?.[round] || []).find(item => item.id === matchId);
   return home ? match?.homeTeam || "" : match?.awayTeam || "";
-}
-
-function deriveChance(group, team) {
-  const table = derived?.groupTables?.[group] || [];
-  const row = table.find(item => item.team === team);
-  const rankWeight = Math.max(8, 34 - (FIFA_RANKING[team] || 40));
-  const formWeight = row ? row.pts * 4 + row.gd * 2 : 0;
-  return Math.max(6, Math.min(88, rankWeight + formWeight));
-}
-
-function deriveKnockoutChance(homeTeam, awayTeam, home) {
-  const current = home ? homeTeam : awayTeam;
-  const other = home ? awayTeam : homeTeam;
-  if (!current || !other || current === "TBD" || other === "TBD") return 50;
-  const currentRank = FIFA_RANKING[current] || 40;
-  const otherRank = FIFA_RANKING[other] || 40;
-  const delta = otherRank - currentRank;
-  return Math.max(8, Math.min(92, 50 + delta));
 }
 
 function sanitizeScore(value) {
