@@ -4,25 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>macro.markets | World Cup 2026 Outcome Simulator</title>
-  <meta name="description" content="Model World Cup 2026 group tables, best third-place teams, and every knockout path in a premium macro.markets experience." />
+  <meta name="description" content="Model World Cup 2026 group tables, best third-place teams, and every knockout path in a premium macro.markets light-mode experience." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-orb orb-a"></div>
-  <div class="bg-orb orb-b"></div>
+  <div class="page-shell">
+    <div class="page-noise"></div>
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="brand-dot"></span>
+        <span class="brand-name">macro.markets</span>
+      </div>
+      <div class="topbar-meta">World Cup 2026 simulator</div>
+    </header>
 
-  <div class="app-shell">
-    <header class="hero panel">
+    <section class="hero-slab panel">
       <div class="hero-copy">
-        <div class="brand-row">
-          <span class="brand-pill">macro.markets</span>
-          <span class="meta-pill">World Cup 2026 simulator</span>
+        <div class="eyebrow-row">
+          <span class="eyebrow">Light market board</span>
+          <span class="eyebrow eyebrow-soft">48-team format</span>
         </div>
-        <h1>Price every World Cup path, from group chaos to the final trade.</h1>
-        <p class="lede">Project every scoreline, rank the eight best third-place finishers with the official tiebreak stack, and route the full bracket through to your champion.</p>
+        <h1>Track every group, every route, every World Cup title path.</h1>
+        <p class="lede">A macro.markets-style board for World Cup 2026. Price the group stage, lock the best third-place teams, and move the bracket through to the final whistle.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" id="shareBtn">Share scenario</button>
           <button class="btn" id="copyBtn">Copy link</button>
@@ -31,15 +37,25 @@
         <p class="status" id="shareStatus">Ready to build your market view.</p>
       </div>
 
-      <aside class="hero-side panel panel-nested">
-        <p class="section-kicker">Live board</p>
+      <aside class="hero-side">
+        <div class="stadium-card">
+          <div class="stadium-glow"></div>
+          <div class="stadium-pitch"></div>
+          <div class="stadium-spot"></div>
+          <div class="trophy-badge">🏆</div>
+          <div class="stadium-copy">
+            <p class="section-kicker">Matchday desk</p>
+            <h2>Live tournament board</h2>
+            <p>Inspired by macro.markets light mode, with a cleaner dashboard feel for desktop and mobile.</p>
+          </div>
+        </div>
         <div class="hero-stats" id="heroStats"></div>
       </aside>
-    </header>
+    </section>
 
     <nav class="section-nav panel" id="stepNav"></nav>
 
-    <main class="main-grid">
+    <main class="content-stack">
       <section class="panel section" id="groupsSection">
         <div class="section-head sticky-head">
           <div>
