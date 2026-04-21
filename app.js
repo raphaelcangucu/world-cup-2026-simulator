@@ -481,9 +481,16 @@ function renderGroupMatch(group, index, fixture) {
   const value = state.groupMatches[matchId];
   return `
     <div class="match-card">
-      <div class="match-meta"><span class="mini-kicker">Match ${index + 1}</span><span class="small">${fixture[0]} vs ${fixture[1]}</span></div>
-      <div class="team-row"><div class="team-name">${fixture[0]}</div><input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="home" value="${value.home}"></div>
-      <div class="team-row"><div class="team-name">${fixture[1]}</div><input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="away" value="${value.away}"></div>
+      <div class="match-meta"><span class="mini-kicker">Match ${index + 1}</span><span class="small">Head-to-head</span></div>
+      <div class="versus-row">
+        <div class="team-name team-name-home">${fixture[0]}</div>
+        <div class="score-duel">
+          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="home" value="${value.home}" aria-label="${fixture[0]} goals">
+          <span class="score-x">x</span>
+          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="away" value="${value.away}" aria-label="${fixture[1]} goals">
+        </div>
+        <div class="team-name team-name-away">${fixture[1]}</div>
+      </div>
     </div>`;
 }
 
@@ -559,8 +566,15 @@ function renderKnockoutMatch(match) {
   return `
     <div class="bracket-card ${lockedWinner !== "TBD" ? "winner-locked" : ""}">
       <div class="match-meta"><span class="mini-kicker">${match.id}</span><span class="small">${match.label || "Knockout"}</span></div>
-      <div class="team-row"><div class="team-name">${match.homeTeam}</div><input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="home" value="${match.home}" ${teamsKnown ? "" : "disabled"}></div>
-      <div class="team-row"><div class="team-name">${match.awayTeam}</div><input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="away" value="${match.away}" ${teamsKnown ? "" : "disabled"}></div>
+      <div class="versus-row ${teamsKnown ? "" : "is-disabled"}">
+        <div class="team-name team-name-home">${match.homeTeam}</div>
+        <div class="score-duel">
+          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="home" value="${match.home}" ${teamsKnown ? "" : "disabled"} aria-label="${match.homeTeam} goals">
+          <span class="score-x">x</span>
+          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="away" value="${match.away}" ${teamsKnown ? "" : "disabled"} aria-label="${match.awayTeam} goals">
+        </div>
+        <div class="team-name team-name-away">${match.awayTeam}</div>
+      </div>
       ${tie && teamsKnown ? `
         <div class="winner-picker">
           <button class="winner-chip ${match.winner === match.homeTeam ? "active" : ""}" data-match="${match.id}" data-winner="${match.homeTeam}">${match.homeTeam}</button>

@@ -360,13 +360,50 @@ h3 {
   align-items: center;
 }
 
+.versus-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.score-duel {
+  display: inline-grid;
+  grid-template-columns: 64px auto 64px;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+}
+
+.score-x {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
 .team-name {
   font-weight: 600;
 }
 
+.team-name-home {
+  text-align: right;
+}
+
+.team-name-away {
+  text-align: left;
+}
+
+.versus-row.is-disabled {
+  opacity: 0.68;
+}
+
 .score-input,
 .winner-select {
-  width: 68px;
+  width: 64px;
   text-align: center;
   border-radius: var(--radius-sm);
   padding: 11px 10px;
@@ -580,8 +617,25 @@ h3 {
     gap: 8px;
   }
 
+  .versus-row {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    gap: 10px;
+  }
+
+  .team-name-home,
+  .team-name-away {
+    text-align: left;
+  }
+
+  .score-duel {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
   .score-input {
-    width: 58px;
+    width: 100%;
+    min-width: 0;
     padding: 10px 8px;
   }
 
