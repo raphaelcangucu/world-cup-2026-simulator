@@ -4,73 +4,74 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>World Cup 2026 Simulator</title>
-  <meta name="description" content="Compact World Cup 2026 simulator UI designed to fit cleanly inside a modal." />
+  <meta name="description" content="Full screen World Cup 2026 simulator with SVG flags and a canvas bracket." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="modal-shell">
-    <section class="modal-card">
-      <header class="modal-hero">
+  <main class="app-shell">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">World Cup 2026</p>
+        <h1>Simulator</h1>
+        <p class="hero-copy">Full screen, com bandeiras em SVG e bracket desenhado em canvas para parar de quebrar no CSS.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="secondary-btn" id="copyBtn">Copy link</button>
+        <button class="secondary-btn" id="resetBtn">Reset</button>
+        <button class="primary-btn" id="shareBtn">Share</button>
+      </div>
+    </section>
+
+    <p class="status" id="shareStatus">Ready.</p>
+    <div class="hero-stats" id="heroStats"></div>
+
+    <nav class="section-nav" id="stepNav"></nav>
+
+    <section class="section-panel" id="groupsSection">
+      <div class="section-head">
         <div>
-          <p class="eyebrow">World Cup 2026</p>
-          <h1>Simulator</h1>
-          <p class="hero-copy">Preencha os placares da fase de grupos, acompanhe os melhores terceiros e avance o mata-mata sem poluição visual.</p>
+          <p class="section-kicker">Group stage</p>
+          <h2>Groups</h2>
         </div>
-        <div class="hero-actions">
-          <button class="secondary-btn" id="copyBtn">Copy link</button>
-          <button class="secondary-btn" id="resetBtn">Reset</button>
-          <button class="primary-btn" id="shareBtn">Share</button>
+        <div class="group-pager" id="groupPager"></div>
+      </div>
+      <div id="groupsContainer"></div>
+    </section>
+
+    <section class="section-panel" id="qualifiersSection">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Qualification</p>
+          <h2>Seeds and best third places</h2>
         </div>
-      </header>
+      </div>
+      <div id="qualifiersContainer"></div>
+    </section>
 
-      <p class="status" id="shareStatus">Ready.</p>
-      <div class="hero-stats" id="heroStats"></div>
-
-      <nav class="section-nav" id="stepNav"></nav>
-
-      <section class="section-panel" id="groupsSection">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Group stage</p>
-            <h2>Groups</h2>
-          </div>
-          <div class="group-pager" id="groupPager"></div>
+    <section class="section-panel" id="knockoutSection">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Knockout</p>
+          <h2>Canvas bracket</h2>
         </div>
-        <div id="groupsContainer"></div>
-      </section>
+      </div>
+      <div class="bracket-stage">
+        <canvas id="bracketCanvas"></canvas>
+      </div>
+      <div id="knockoutControls"></div>
+    </section>
 
-      <section class="section-panel" id="qualifiersSection">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Qualification</p>
-            <h2>Seeds and best third places</h2>
-          </div>
+    <section class="section-panel" id="championSection">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Champion</p>
+          <h2>Outcome</h2>
         </div>
-        <div id="qualifiersContainer"></div>
-      </section>
-
-      <section class="section-panel" id="knockoutSection">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Knockout</p>
-            <h2>Bracket</h2>
-          </div>
-        </div>
-        <div id="knockoutContainer"></div>
-      </section>
-
-      <section class="section-panel" id="championSection">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Champion</p>
-            <h2>Outcome</h2>
-          </div>
-        </div>
-        <div id="championContainer"></div>
-      </section>
+      </div>
+      <div id="championContainer"></div>
     </section>
   </main>
 

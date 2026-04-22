@@ -1,3 +1,54 @@
+const TEAM_FLAG_CODES = {
+  Mexico: "mx",
+  "South Africa": "za",
+  "South Korea": "kr",
+  Czechia: "cz",
+  Canada: "ca",
+  "Bosnia and Herzegovina": "ba",
+  Qatar: "qa",
+  Switzerland: "ch",
+  Brazil: "br",
+  Morocco: "ma",
+  Haiti: "ht",
+  Scotland: "gb-sct",
+  USA: "us",
+  Paraguay: "py",
+  Australia: "au",
+  "Türkiye": "tr",
+  Germany: "de",
+  "Curaçao": "cw",
+  "Ivory Coast": "ci",
+  Ecuador: "ec",
+  Netherlands: "nl",
+  Japan: "jp",
+  Sweden: "se",
+  Tunisia: "tn",
+  Belgium: "be",
+  Egypt: "eg",
+  Iran: "ir",
+  "New Zealand": "nz",
+  Spain: "es",
+  "Cape Verde": "cv",
+  "Saudi Arabia": "sa",
+  Uruguay: "uy",
+  France: "fr",
+  Senegal: "sn",
+  Iraq: "iq",
+  Norway: "no",
+  Argentina: "ar",
+  Algeria: "dz",
+  Austria: "at",
+  Jordan: "jo",
+  Portugal: "pt",
+  "DR Congo": "cd",
+  Uzbekistan: "uz",
+  Colombia: "co",
+  England: "gb-eng",
+  Croatia: "hr",
+  Ghana: "gh",
+  Panama: "pa",
+};
+
 const GROUPS = {
   A: ["Mexico", "South Africa", "South Korea", "Czechia"],
   B: ["Canada", "Bosnia and Herzegovina", "Qatar", "Switzerland"],
@@ -433,11 +484,11 @@ function renderGroups() {
         <div class="market-meta-row">
           <div>
             <span class="brand-pill">Group ${group}</span>
-            <span class="muted">Top two qualify automatically, third place enters the best-third market.</span>
+            <span class="match-meta">Top 2 avançam automaticamente, o 3º entra na disputa dos melhores terceiros.</span>
           </div>
         </div>
         <div class="group-layout">
-          <div class="market-card">
+          <div class="group-match-card">
             <div class="card-head">
               <p class="mini-kicker">Fixtures</p>
               <h3>Matchday inputs</h3>
@@ -446,7 +497,7 @@ function renderGroups() {
               ${GROUP_FIXTURES[group].map((fixture, index) => renderGroupMatch(group, index, fixture)).join("")}
             </div>
           </div>
-          <div class="table-wrap">
+          <div class="group-table-card">
             <div class="card-head">
               <p class="mini-kicker">Table</p>
               <h3>Live standings</h3>
@@ -457,7 +508,7 @@ function renderGroups() {
             <div class="table-body">
               ${table.map((row, index) => `
                 <div class="table-row ${index < 2 ? "qualify" : ""} ${index === 2 ? "third-live" : ""}">
-                  <div>${index + 1}. ${row.team}</div>
+                  <div class="team-row">${renderFlag(row.team)}<span>${index + 1}. ${row.team}</span></div>
                   <div>${row.pts}</div>
                   <div>${row.w}</div>
                   <div>${row.d}</div>
@@ -481,23 +532,15 @@ function renderGroupMatch(group, index, fixture) {
   const matchId = `${group}-${index}`;
   const value = state.groupMatches[matchId];
   return `
-    <div class="match-card">
-      <div class="market-meta-row">
-        <div>
-          <div class="match-card-title">Group ${group} Match ${index + 1}</div>
-          <div class="match-card-subtitle">${fixture[0]} vs ${fixture[1]}</div>
-        </div>
+    <div class="match-row">
+      <div class="team-stack">
+        <div class="team-row">${renderFlag(fixture[0])}<span class="team-name">${fixture[0]}</span></div>
+        <div class="team-row">${renderFlag(fixture[1])}<span class="team-name team-sub">${fixture[1]}</span></div>
       </div>
-      <div class="match-row-clean">
-        <div class="team-cell">
-          <div class="team-name">${fixture[0]}</div>
-          <div class="team-name away-team">${fixture[1]}</div>
-        </div>
-        <div class="score-pair-card">
-          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="home" value="${value.home}" aria-label="${fixture[0]} goals">
-          <span class="score-x">x</span>
-          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="away" value="${value.away}" aria-label="${fixture[1]} goals">
-        </div>
+      <div class="score-box">
+        <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="home" value="${value.home}" aria-label="${fixture[0]} goals">
+        <span class="score-x">x</span>
+        <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${matchId}" data-side="away" value="${value.away}" aria-label="${fixture[1]} goals">
       </div>
     </div>`;
 }
@@ -538,31 +581,24 @@ function renderQualifiers() {
 }
 
 function renderKnockout() {
-  const rounds = [
-    { key: "R32", title: "Round of 32" },
-    { key: "R16", title: "Round of 16" },
-    { key: "QF", title: "Quarterfinals" },
-    { key: "SF", title: "Semifinals" },
-    { key: "F", title: "Final" },
-  ];
+  document.getElementById("knockoutControls").innerHTML = `
+    <div class="knockout-controls-grid">
+      ${["R32", "R16", "QF", "SF", "F"].flatMap(round => derived.matches[round]).map(renderKnockoutMatch).join("")}
+    </div>`;
 
-  document.getElementById("knockoutContainer").innerHTML = `<div class="knockout-grid">${rounds.map(round => `
-    <div class="round-col">
-      <div class="market-card round-header"><p class="mini-kicker">Bracket</p><h3>${round.title}</h3></div>
-      <div class="round-stack">${derived.matches[round.key].map(renderKnockoutMatch).join("")}</div>
-    </div>`).join("")}</div>`;
-
-  document.querySelectorAll("#knockoutContainer [data-match][data-side]").forEach(input => {
+  document.querySelectorAll("#knockoutControls [data-match][data-side]").forEach(input => {
     input.addEventListener("input", event => updateScoreState(state.knockoutMatches, event.target.dataset.match, event.target.dataset.side, event.target.value, true));
   });
 
-  document.querySelectorAll("#knockoutContainer [data-winner]").forEach(button => {
+  document.querySelectorAll("#knockoutControls [data-winner]").forEach(button => {
     button.addEventListener("click", event => {
       const { match, winner } = event.currentTarget.dataset;
       state.knockoutMatches[match].winner = winner;
       recomputeAndRender();
     });
   });
+
+  drawBracketCanvas();
 }
 
 function renderKnockoutMatch(match) {
@@ -572,25 +608,26 @@ function renderKnockoutMatch(match) {
   const winnerText = lockedWinner === "TBD" ? (teamsKnown ? "Escolha o classificado em caso de empate, ou coloque um placar vencedor." : "Aguardando rodada anterior.") : `Classificado: ${lockedWinner}`;
 
   return `
-    <div class="bracket-card ${lockedWinner !== "TBD" ? "winner-locked" : ""}">
-      <div class="market-meta-row"><div><div class="match-card-title">${match.id}</div><div class="match-card-subtitle">${match.label || "Knockout"}</div></div></div>
-      <div class="match-row-clean ${teamsKnown ? "" : "is-disabled"}">
-        <div class="team-cell">
-          <div class="team-name">${match.homeTeam}</div>
-          <div class="team-name away-team">${match.awayTeam}</div>
-        </div>
-        <div class="score-pair-card">
-          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="home" value="${match.home}" ${teamsKnown ? "" : "disabled"} aria-label="${match.homeTeam} goals">
-          <span class="score-x">x</span>
-          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="away" value="${match.away}" ${teamsKnown ? "" : "disabled"} aria-label="${match.awayTeam} goals">
-        </div>
+    <div class="knockout-control-card ${lockedWinner !== "TBD" ? "winner-locked" : ""}">
+      <div class="card-head">
+        <p class="mini-kicker">${match.id}</p>
+        <h3>${match.label || "Knockout"}</h3>
+      </div>
+      <div class="team-stack ${teamsKnown ? "" : "is-disabled"}">
+        <div class="team-row">${renderFlag(match.homeTeam)}<span class="team-name">${match.homeTeam}</span></div>
+        <div class="team-row">${renderFlag(match.awayTeam)}<span class="team-name team-sub">${match.awayTeam}</span></div>
+      </div>
+      <div class="score-box" style="margin-top:12px;">
+        <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="home" value="${match.home}" ${teamsKnown ? "" : "disabled"} aria-label="${match.homeTeam} goals">
+        <span class="score-x">x</span>
+        <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${match.id}" data-side="away" value="${match.away}" ${teamsKnown ? "" : "disabled"} aria-label="${match.awayTeam} goals">
       </div>
       ${tie && teamsKnown ? `
         <div class="winner-picker">
           <button class="winner-chip ${match.winner === match.homeTeam ? "active" : ""}" data-match="${match.id}" data-winner="${match.homeTeam}">${match.homeTeam}</button>
           <button class="winner-chip ${match.winner === match.awayTeam ? "active" : ""}" data-match="${match.id}" data-winner="${match.awayTeam}">${match.awayTeam}</button>
         </div>` : ""}
-      <p class="small">${winnerText}</p>
+      <p class="canvas-note" style="margin-top:10px;">${winnerText}</p>
     </div>`;
 }
 
@@ -660,5 +697,125 @@ function isScoreReady(value) {
 function displayScore(value) {
   return value === "" ? "-" : value;
 }
+
+function renderFlag(team) {
+  if (!team || team === "TBD") return `<span class="flag" aria-hidden="true"></span>`;
+  const code = TEAM_FLAG_CODES[team];
+  if (!code) return `<span class="flag" aria-hidden="true"></span>`;
+  return `<img class="flag" src="https://flagcdn.com/${code}.svg" alt="${team} flag" loading="lazy">`;
+}
+
+function drawBracketCanvas() {
+  const canvas = document.getElementById("bracketCanvas");
+  if (!canvas) return;
+  const ratio = window.devicePixelRatio || 1;
+  const cssWidth = 1400;
+  const cssHeight = 900;
+  canvas.width = cssWidth * ratio;
+  canvas.height = cssHeight * ratio;
+  const ctx = canvas.getContext("2d");
+  canvas.style.width = `${cssWidth}px`;
+  canvas.style.height = `${cssHeight}px`;
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, cssWidth, cssHeight);
+
+  const rounds = [
+    { key: "R32", title: "Round of 32" },
+    { key: "R16", title: "Round of 16" },
+    { key: "QF", title: "Quarterfinals" },
+    { key: "SF", title: "Semifinals" },
+    { key: "F", title: "Final" },
+  ];
+
+  const cardW = 220;
+  const cardH = 56;
+  const colGap = 58;
+  const startX = 30;
+  const topMap = {
+    R32: 24,
+    R16: 52,
+    QF: 108,
+    SF: 220,
+    F: 388,
+  };
+  const stepMap = {
+    R32: 54,
+    R16: 108,
+    QF: 216,
+    SF: 432,
+    F: 0,
+  };
+
+  const positions = {};
+
+  ctx.font = "700 13px Inter, sans-serif";
+  ctx.fillStyle = "#64748b";
+  rounds.forEach((round, colIndex) => {
+    const x = startX + colIndex * (cardW + colGap);
+    ctx.fillText(round.title, x, 18);
+    derived.matches[round.key].forEach((match, index) => {
+      const y = topMap[round.key] + index * (cardH + stepMap[round.key]);
+      positions[match.id] = { x, y, cx: x + cardW, cy: y + cardH / 2 };
+      drawMatchCard(ctx, x, y, cardW, cardH, match, getMatchWinner(match) !== "TBD");
+    });
+  });
+
+  ctx.strokeStyle = "#cbd5e1";
+  ctx.lineWidth = 2;
+  Object.entries(NEXT_ROUNDS).forEach(([round, pairs]) => {
+    pairs.forEach((pair, index) => {
+      const target = positions[`${round}-${index + 1}`];
+      const a = positions[pair[0]];
+      const b = positions[pair[1]];
+      if (!target || !a || !b) return;
+      const midX = target.x - 28;
+      ctx.beginPath();
+      ctx.moveTo(a.cx, a.cy);
+      ctx.lineTo(midX, a.cy);
+      ctx.lineTo(midX, target.cy);
+      ctx.lineTo(target.x, target.cy);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(b.cx, b.cy);
+      ctx.lineTo(midX, b.cy);
+      ctx.lineTo(midX, target.cy);
+      ctx.lineTo(target.x, target.cy);
+      ctx.stroke();
+    });
+  });
+}
+
+function drawMatchCard(ctx, x, y, w, h, match, locked) {
+  const radius = 12;
+  ctx.fillStyle = locked ? "#f0fdf4" : "#ffffff";
+  ctx.strokeStyle = locked ? "#86efac" : "#dbe2ea";
+  ctx.lineWidth = 1.5;
+  roundedRect(ctx, x, y, w, h, radius);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = "#0f172a";
+  ctx.font = "700 12px Inter, sans-serif";
+  ctx.fillText(match.homeTeam || "TBD", x + 12, y + 22);
+  ctx.fillText(match.awayTeam || "TBD", x + 12, y + 42);
+
+  ctx.fillStyle = "#64748b";
+  ctx.font = "700 11px Inter, sans-serif";
+  ctx.fillText(`${displayScore(match.home)} x ${displayScore(match.away)}`, x + w - 48, y + 32);
+}
+
+function roundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + width, y, x + width, y + height, radius);
+  ctx.arcTo(x + width, y + height, x, y + height, radius);
+  ctx.arcTo(x, y + height, x, y, radius);
+  ctx.arcTo(x, y, x + width, y, radius);
+  ctx.closePath();
+}
+
+window.addEventListener("resize", () => {
+  if (derived) drawBracketCanvas();
+});
 
 init();
