@@ -57,7 +57,7 @@ const NAV_STEPS = [
 ];
 
 let SCHEDULE = [];
-const state = { scores: {}, knockoutMatches: {}, activeGroup: "A", thirdMap: {} };
+const state = { scores: {}, knockoutMatches: {}, activeGroup: "A", activeRound: "1ª rodada", groupView: "group", thirdMap: {} };
 let derived = null;
 
 async function init() {
@@ -66,6 +66,7 @@ async function init() {
   restoreState();
   renderNav();
   bindTopActions();
+  bindGroupViewTabs();
   window.addEventListener("hashchange", renderNavActive);
   recomputeAndRender();
 }
@@ -107,11 +108,13 @@ function restoreState() {
     Object.assign(state.scores, decoded.scores || {});
     Object.assign(state.knockoutMatches, decoded.knockoutMatches || {});
     if (GROUPS[decoded.activeGroup]) state.activeGroup = decoded.activeGroup;
+    if (["1ª rodada", "2ª rodada", "3ª rodada"].includes(decoded.activeRound)) state.activeRound = decoded.activeRound;
+    if (["group", "round"].includes(decoded.groupView)) state.groupView = decoded.groupView;
   } catch {}
 }
 
 function persistState() {
-  const raw = JSON.stringify({ scores: state.scores, knockoutMatches: state.knockoutMatches, activeGroup: state.activeGroup });
+  const raw = JSON.stringify({ scores: state.scores, knockoutMatches: state.knockoutMatches, activeGroup: state.activeGroup, activeRound: state.activeRound, groupView: state.groupView });
   const payload = btoa(unescape(encodeURIComponent(raw))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
   history.replaceState(null, "", `${location.pathname}${location.search}#s=${payload}`);
   localStorage.setItem("wc26-state", payload);
@@ -172,12 +175,31 @@ function renderHeroStats() {
   ].map(item => `<div class="hero-stat"><span class="mini-kicker">${item.label}</span><strong>${item.value}</strong></div>`).join("");
 }
 
+function bindGroupViewTabs() {
+  document.querySelectorAll('[data-group-view]').forEach(button => {
+    button.addEventListener('click', () => {
+      state.groupView = button.dataset.groupView;
+      recomputeAndRender();
+    });
+  });
+}
+
 function renderGroupPager() {
+  document.querySelectorAll('[data-group-view]').forEach(button => button.classList.toggle('active', button.dataset.groupView === state.groupView));
+  document.getElementById("groupPager").style.display = state.groupView === 'group' ? 'flex' : 'none';
+  document.getElementById("roundPager").style.display = state.groupView === 'round' ? 'flex' : 'none';
   document.getElementById("groupPager").innerHTML = Object.keys(GROUPS).map(group => `<button class="group-tab ${group === state.activeGroup ? "active" : ""}" data-group="${group}">Grupo ${group}</button>`).join("");
+  document.getElementById("roundPager").innerHTML = [...new Set(SCHEDULE.map(match => match.round))].map(round => `<button class="group-tab ${round === state.activeRound ? "active" : ""}" data-round="${round}">${round}</button>`).join("");
   document.getElementById("groupPager").onclick = event => {
     const button = event.target.closest("[data-group]");
     if (!button) return;
     state.activeGroup = button.dataset.group;
+    recomputeAndRender();
+  };
+  document.getElementById("roundPager").onclick = event => {
+    const button = event.target.closest("[data-round]");
+    if (!button) return;
+    state.activeRound = button.dataset.round;
     recomputeAndRender();
   };
 }
@@ -292,29 +314,59 @@ function getMatchWinner(match) {
 
 function renderGroups() {
   const container = document.getElementById("groupsContainer");
-  container.innerHTML = Object.keys(GROUPS).map(group => {
-    const table = derived.groupTables[group];
-    const matches = SCHEDULE.filter(match => match.group === group);
-    return `
-      <article class="group-card ${group === state.activeGroup ? "active" : ""}">
-        <div class="group-layout">
-          <div class="group-match-card">
-            <div class="card-head"><p class="mini-kicker">Fixtures</p><h3>Matchday inputs</h3></div>
-            <div class="match-list">${matches.map(renderGroupMatch).join("")}</div>
+  if (state.groupView === 'round') {
+    const matches = SCHEDULE.filter(match => match.round === state.activeRound);
+    const dates = [...new Set(matches.map(match => match.date))];
+    container.innerHTML = dates.map(date => `
+      <article class="group-card active round-view-card">
+        <div class="card-head"><p class="mini-kicker">${state.activeRound}</p><h3>${date}</h3></div>
+        <div class="match-list">${matches.filter(match => match.date === date).map(renderRoundMatch).join("")}</div>
+      </article>`).join("");
+  } else {
+    container.innerHTML = Object.keys(GROUPS).map(group => {
+      const table = derived.groupTables[group];
+      const matches = SCHEDULE.filter(match => match.group === group);
+      return `
+        <article class="group-card ${group === state.activeGroup ? "active" : ""}">
+          <div class="group-layout">
+            <div class="group-match-card">
+              <div class="card-head"><p class="mini-kicker">Fixtures</p><h3>Matchday inputs</h3></div>
+              <div class="match-list">${matches.map(renderGroupMatch).join("")}</div>
+            </div>
+            <div class="group-table-card">
+              <div class="card-head"><p class="mini-kicker">Tabela</p><h3>Classificação ao vivo</h3></div>
+              <div class="table-header"><div>Seleção</div><div>Pts</div><div>W</div><div>D</div><div>L</div><div>GF</div><div>GA</div><div>GD</div></div>
+              <div class="table-body">${table.map((row, index) => `
+                <div class="table-row ${index < 2 ? "qualify" : ""} ${index === 2 ? "third-live" : ""}">
+                  <div class="team-row">${renderFlag(row.team)}<span>${index + 1}. ${label(row.team)}</span></div>
+                  <div>${row.pts}</div><div>${row.w}</div><div>${row.d}</div><div>${row.l}</div><div>${row.gf}</div><div>${row.ga}</div><div>${row.gd}</div>
+                </div>`).join("")}</div>
+            </div>
           </div>
-          <div class="group-table-card">
-            <div class="card-head"><p class="mini-kicker">Tabela</p><h3>Classificação ao vivo</h3></div>
-            <div class="table-header"><div>Seleção</div><div>Pts</div><div>W</div><div>D</div><div>L</div><div>GF</div><div>GA</div><div>GD</div></div>
-            <div class="table-body">${table.map((row, index) => `
-              <div class="table-row ${index < 2 ? "qualify" : ""} ${index === 2 ? "third-live" : ""}">
-                <div class="team-row">${renderFlag(row.team)}<span>${index + 1}. ${label(row.team)}</span></div>
-                <div>${row.pts}</div><div>${row.w}</div><div>${row.d}</div><div>${row.l}</div><div>${row.gf}</div><div>${row.ga}</div><div>${row.gd}</div>
-              </div>`).join("")}</div>
-          </div>
-        </div>
-      </article>`;
-  }).join("");
+        </article>`;
+    }).join("");
+  }
   document.querySelectorAll("#groupsContainer [data-match][data-side]").forEach(input => input.addEventListener("input", event => updateScoreState(state.scores, event.target.dataset.match, event.target.dataset.side, event.target.value)));
+}
+
+function renderRoundMatch(match) {
+  const id = getMatchId(match);
+  const value = state.scores[id];
+  return `
+    <article class="match-card-inline">
+      <div class="match-topline"><span class="brand-pill">Grupo ${match.group}</span><span class="seed-note">${match.venue}</span></div>
+      <div class="match-meta">${match.localTime} local · ${match.brasiliaTime} Brasília</div>
+      <div class="match-row match-row-inline">
+        <div class="team-inline">${renderFlag(match.homeKey)}<span class="team-name">${match.home}</span></div>
+        <div class="score-box score-box-inline">
+          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${id}" data-side="home" value="${value.home}" />
+          <span class="score-x">x</span>
+          <input class="score-input" type="number" min="0" step="1" inputmode="numeric" data-match="${id}" data-side="away" value="${value.away}" />
+        </div>
+        <div class="team-inline team-inline-away">${renderFlag(match.awayKey)}<span class="team-name team-sub">${match.away}</span></div>
+      </div>
+      <div class="match-actions"><a class="secondary-btn" href="${buildCalendarUrl(match)}" target="_blank" rel="noreferrer">Adicionar ao calendário</a></div>
+    </article>`;
 }
 
 function renderGroupMatch(match) {
@@ -333,6 +385,7 @@ function renderGroupMatch(match) {
         </div>
         <div class="team-inline team-inline-away">${renderFlag(match.awayKey)}<span class="team-name team-sub">${match.away}</span></div>
       </div>
+      <div class="match-actions"><a class="secondary-btn" href="${buildCalendarUrl(match)}" target="_blank" rel="noreferrer">Adicionar ao calendário</a></div>
     </article>`;
 }
 
@@ -362,19 +415,26 @@ function renderQualifiers() {
 
 function renderKnockout() {
   const rounds = [
-    { key: "R32", title: "32-avos" },
-    { key: "R16", title: "Oitavas" },
-    { key: "QF", title: "Quartas" },
-    { key: "SF", title: "Semifinal" },
-    { key: "F", title: "Final" }
+    { key: "R32", title: "32-avos", className: 'round-r32' },
+    { key: "R16", title: "Oitavas", className: 'round-r16' },
+    { key: "QF", title: "Quartas", className: 'round-qf' },
+    { key: "SF", title: "Semifinal", className: 'round-sf' },
+    { key: "F", title: "Final", className: 'round-f' }
   ];
   document.getElementById("bracketBoard").innerHTML = rounds.map(round => `
-    <div class="bracket-column">
+    <div class="bracket-column ${round.className}">
       <div class="bracket-title">${round.title}</div>
       <div class="bracket-stack">${derived.matches[round.key].map(match => renderBracketMatch(match)).join("")}</div>
     </div>`).join("");
   document.getElementById("knockoutControls").innerHTML = `<div class="inline-note">Edite o placar direto no bracket. Em empate, escolha o classificado.</div>`;
   bindKnockoutEvents();
+}
+
+function buildCalendarUrl(match) {
+  const title = encodeURIComponent(`${match.home} x ${match.away} · Grupo ${match.group} · Copa do Mundo 2026`);
+  const details = encodeURIComponent(`${match.date}\n${match.venue}\n${match.localTime} local · ${match.brasiliaTime} Brasília`);
+  const location = encodeURIComponent(match.venue);
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
 }
 
 function renderBracketMatch(match) {
