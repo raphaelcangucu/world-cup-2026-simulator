@@ -1,87 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador Copa do Mundo 2026</title>
-  <meta name="description" content="Simulador completo da Copa do Mundo 2026 com fase de grupos, classificação e bracket do mata-mata." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <title>Simulador Copa do Mundo 2026 · macro.markets</title>
+  <meta name="description" content="Simule seus palpites da Copa do Mundo 2026, do jogo de grupo ao campeão, e compartilhe seu cenário." />
+  <meta name="theme-color" content="#111318" id="themeColorMeta" />
+
+  <meta property="og:title" content="Simulador Copa do Mundo 2026 · macro.markets" />
+  <meta property="og:description" content="Monte seus palpites e compartilhe seu cenário do torneio." />
+  <meta property="og:image" content="assets/og-default.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="preconnect" href="https://flagcdn.com" crossorigin />
+
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/sections.css" />
 </head>
 <body>
-  <main class="app-shell">
-    <section class="hero-panel">
-      <div>
-        <p class="eyebrow">Copa do Mundo 2026</p>
-        <h1>Simulador</h1>
-        <p class="hero-copy">Fase de grupos com dados oficiais da FIFA, melhores terceiros e bracket do mata-mata com edição direta.</p>
-      </div>
-      <div class="hero-actions">
-        <button class="secondary-btn" id="copyBtn">Copiar link</button>
-        <button class="secondary-btn" id="resetBtn">Resetar</button>
-        <button class="primary-btn" id="shareBtn">Compartilhar</button>
-      </div>
-    </section>
+  <a href="#mainContent" class="skip-link">Pular para o conteúdo</a>
 
-    <p class="status" id="shareStatus">Pronto.</p>
-    <div class="hero-stats" id="heroStats"></div>
-
-    <nav class="section-nav" id="stepNav"></nav>
-
-    <section class="section-panel" id="groupsSection">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Fase de grupos</p>
-          <h2>Grupos e rodadas</h2>
-        </div>
-      </div>
-      <div class="view-toolbar">
-        <div class="view-tabs">
-          <button class="nav-link active" data-group-view="group">Por grupo</button>
-          <button class="nav-link" data-group-view="round">Por rodada</button>
-        </div>
-        <div class="group-pager" id="groupPager"></div>
-        <div class="group-pager" id="roundPager"></div>
-      </div>
-      <div id="groupsContainer"></div>
-    </section>
-
-    <section class="section-panel" id="qualifiersSection">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Classificação</p>
-          <h2>Seeds e melhores terceiros</h2>
-        </div>
-      </div>
-      <div id="qualifiersContainer"></div>
-    </section>
-
-    <section class="section-panel" id="knockoutSection">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Mata-mata</p>
-          <h2>Bracket</h2>
-        </div>
-      </div>
-      <div class="bracket-stage">
-        <div id="bracketBoard" class="bracket-board"></div>
-      </div>
-      <div id="knockoutControls"></div>
-    </section>
-
-    <section class="section-panel" id="championSection">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Campeão</p>
-          <h2>Desfecho</h2>
-        </div>
-      </div>
-      <div id="championContainer"></div>
-    </section>
+  <main id="mainContent" class="app-shell">
+    <section id="heroSection" aria-labelledby="heroTitle"></section>
+    <section id="groupsSection" class="section-panel" aria-labelledby="groupsTitle"></section>
+    <section id="qualifiersSection" class="section-panel" aria-labelledby="qualifiersTitle"></section>
+    <section id="knockoutSection" class="section-panel" aria-labelledby="knockoutTitle"></section>
+    <section id="championSection" class="section-panel" aria-labelledby="championTitle"></section>
   </main>
 
-  <script src="app.js"></script>
+  <div id="shareModalRoot" aria-live="polite"></div>
+  <div id="onboardingRoot" aria-live="polite"></div>
+  <div id="statusLiveRegion" role="status" aria-live="polite" class="sr-only"></div>
+
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

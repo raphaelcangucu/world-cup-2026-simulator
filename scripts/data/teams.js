@@ -1,0 +1,116 @@
+export const TEAM_FLAG_CODES = {
+  Mexico: "mx",
+  "South Africa": "za",
+  "South Korea": "kr",
+  Czechia: "cz",
+  Canada: "ca",
+  "Bosnia and Herzegovina": "ba",
+  Qatar: "qa",
+  Switzerland: "ch",
+  Brazil: "br",
+  Morocco: "ma",
+  Haiti: "ht",
+  Scotland: "gb-sct",
+  USA: "us",
+  Paraguay: "py",
+  Australia: "au",
+  "Türkiye": "tr",
+  Germany: "de",
+  "Curaçao": "cw",
+  "Ivory Coast": "ci",
+  Ecuador: "ec",
+  Netherlands: "nl",
+  Japan: "jp",
+  Sweden: "se",
+  Tunisia: "tn",
+  Belgium: "be",
+  Egypt: "eg",
+  Iran: "ir",
+  "New Zealand": "nz",
+  Spain: "es",
+  "Cape Verde": "cv",
+  "Saudi Arabia": "sa",
+  Uruguay: "uy",
+  France: "fr",
+  Senegal: "sn",
+  Iraq: "iq",
+  Norway: "no",
+  Argentina: "ar",
+  Algeria: "dz",
+  Austria: "at",
+  Jordan: "jo",
+  Portugal: "pt",
+  "DR Congo": "cd",
+  Uzbekistan: "uz",
+  Colombia: "co",
+  England: "gb-eng",
+  Croatia: "hr",
+  Ghana: "gh",
+  Panama: "pa"
+};
+
+export const TEAM_LABELS = {
+  Mexico: "México",
+  "South Africa": "África do Sul",
+  "South Korea": "Rep. da Coreia",
+  Czechia: "Rep. Tcheca",
+  Canada: "Canadá",
+  "Bosnia and Herzegovina": "Bósnia",
+  Qatar: "Catar",
+  Switzerland: "Suíça",
+  Brazil: "Brasil",
+  Morocco: "Marrocos",
+  Haiti: "Haiti",
+  Scotland: "Escócia",
+  USA: "Estados Unidos",
+  Paraguay: "Paraguai",
+  Australia: "Austrália",
+  "Türkiye": "Turquia",
+  Germany: "Alemanha",
+  "Curaçao": "Curaçau",
+  "Ivory Coast": "Costa do Marfim",
+  Ecuador: "Equador",
+  Netherlands: "Holanda",
+  Japan: "Japão",
+  Sweden: "Suécia",
+  Tunisia: "Tunísia",
+  Belgium: "Bélgica",
+  Egypt: "Egito",
+  Iran: "Irã",
+  "New Zealand": "Nova Zelândia",
+  Spain: "Espanha",
+  "Cape Verde": "Cabo Verde",
+  "Saudi Arabia": "Arábia Saudita",
+  Uruguay: "Uruguai",
+  France: "França",
+  Senegal: "Senegal",
+  Iraq: "Iraque",
+  Norway: "Noruega",
+  Argentina: "Argentina",
+  Algeria: "Argélia",
+  Austria: "Áustria",
+  Jordan: "Jordânia",
+  Portugal: "Portugal",
+  "DR Congo": "Rep. Dem. do Congo",
+  Uzbekistan: "Uzbequistão",
+  Colombia: "Colômbia",
+  England: "Inglaterra",
+  Croatia: "Croácia",
+  Ghana: "Gana",
+  Panama: "Panamá"
+};
+
+export function teamLabel(key) {
+  if (!key || key === "TBD") return "A definir";
+  return TEAM_LABELS[key] || key;
+}
+
+export function teamFlagCode(key) {
+  if (!key || key === "TBD") return null;
+  return TEAM_FLAG_CODES[key] || null;
+}
+
+export function teamFlagUrl(key) {
+  const code = teamFlagCode(key);
+  return code ? `https://flagcdn.com/${code}.svg` : "assets/flag-fallback.svg";
+}
