@@ -49,6 +49,7 @@ async function bootstrap() {
   store.subscribe(snapshot => {
     applyTheme(snapshot.state.theme);
     const flowId = captureFocusId(mainEl, "data-flow-id");
+    const scrollY = window.scrollY;
 
     renderHero(heroEl, snapshot, actions);
     renderGroupsSection(groupsEl, snapshot, actions, fixtures);
@@ -56,6 +57,7 @@ async function bootstrap() {
     renderBracketSection(knockoutEl, snapshot, actions);
     renderChampionSection(championEl, snapshot);
 
+    if (window.scrollY !== scrollY) window.scrollTo({ top: scrollY, behavior: "instant" });
     if (flowId) restoreFocus(mainEl, "data-flow-id", flowId);
   });
 

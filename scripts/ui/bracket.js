@@ -17,6 +17,9 @@ export function renderBracketSection(container, snapshot, actions) {
   const { state, derived } = snapshot;
   if (cleanupResize) { cleanupResize(); cleanupResize = null; }
 
+  const prevStage = container.querySelector(".bracket-stage");
+  const prevScrollLeft = prevStage ? prevStage.scrollLeft : 0;
+
   container.innerHTML = `
     <div class="section-head">
       <div>
@@ -36,8 +39,12 @@ export function renderBracketSection(container, snapshot, actions) {
 
   const board = container.querySelector("#bracketBoard");
   const svg = container.querySelector("#bracketSvg");
-  const pathIds = derived.championPath || [];
+  const newStage = container.querySelector(".bracket-stage");
+  if (newStage && prevScrollLeft) {
+    newStage.scrollLeft = prevScrollLeft;
+  }
 
+  const pathIds = derived.championPath || [];
   const draw = () => drawConnectors(board, svg, derived.matches, pathIds);
 
   const trigger = () => {

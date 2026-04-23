@@ -129,6 +129,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.9fr);
   gap: 14px;
+  align-items: start;
 }
 
 @media (max-width: 980px) {
@@ -338,6 +339,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
+  align-items: start;
 }
 @media (max-width: 1120px) {
   .qualifiers-grid {
@@ -360,7 +362,7 @@
 }
 .seed-row {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   padding: 8px 10px;
@@ -368,6 +370,9 @@
   border: 1px solid var(--accent);
   border-radius: var(--r-sm);
   font-size: 0.85rem;
+}
+.seed-row .kicker {
+  white-space: nowrap;
 }
 .seed-row .small {
   color: var(--text-hint);
@@ -392,7 +397,7 @@
 }
 .thirds-row {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   padding: 8px 10px;
@@ -401,6 +406,9 @@
   border-radius: var(--r-sm);
   font-size: 0.85rem;
   transition: transform 280ms var(--ease), background-color 280ms var(--ease);
+}
+.thirds-row .kicker {
+  white-space: nowrap;
 }
 .thirds-row.is-qualified {
   background: var(--success-soft);
