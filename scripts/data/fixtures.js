@@ -4,7 +4,7 @@ export async function loadFixtures() {
   if (cached) return cached;
   const response = await fetch("group-schedule.json", { cache: "no-store" });
   if (!response.ok) {
-    throw new Error(`Falha ao carregar group-schedule.json: ${response.status}`);
+    throw new Error(`Failed to load group-schedule.json: ${response.status}`);
   }
   cached = await response.json();
   return cached;

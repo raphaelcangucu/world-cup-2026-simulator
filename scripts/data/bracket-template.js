@@ -33,15 +33,13 @@ export const NEXT_ROUNDS = {
   F: [["SF-1", "SF-2"]]
 };
 
-export const ROUND_LABELS = {
-  R32: "Round of 32",
-  R16: "Oitavas",
-  QF: "Quartas",
-  SF: "Semifinal",
-  F: "Final"
-};
+import { t } from "../i18n/index.js";
 
 export const ROUND_ORDER = ["R32", "R16", "QF", "SF", "F"];
+
+export function roundLabel(round) {
+  return t(`round.${round}`);
+}
 
 export function isLeftSide(matchId) {
   if (matchId === "F") return null;

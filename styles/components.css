@@ -257,6 +257,42 @@
   height: 18px;
 }
 
+/* Language switch */
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--divider);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.lang-chip {
+  min-width: 32px;
+  height: 30px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: calc(var(--r-md) - 4px);
+  cursor: pointer;
+  transition: background-color 160ms var(--ease), color 160ms var(--ease);
+}
+.lang-chip:hover {
+  color: var(--text-primary);
+}
+.lang-chip.is-active {
+  background: var(--primary);
+  color: var(--primary-contrast, #fff);
+}
+.lang-chip:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 /* Progress bar */
 .progress {
   position: relative;

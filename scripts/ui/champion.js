@@ -1,6 +1,7 @@
-import { ROUND_LABELS } from "../data/bracket-template.js";
+import { roundLabel } from "../data/bracket-template.js";
 import { teamFlagUrl, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
+import { t } from "../i18n/index.js";
 
 export function renderChampionSection(container, snapshot) {
   const { derived } = snapshot;
@@ -10,13 +11,13 @@ export function renderChampionSection(container, snapshot) {
     container.innerHTML = `
       <div class="section-head">
         <div>
-          <p class="kicker">Campeão</p>
-          <h2 id="championTitle">Mercado aberto</h2>
+          <p class="kicker">${t("champion.kicker")}</p>
+          <h2 id="championTitle">${t("champion.openMarket")}</h2>
         </div>
       </div>
       <div class="champion-card">
         <div>
-          <p class="muted">Preencha os placares do mata-mata para definir o campeão e ver o caminho percorrido até a final.</p>
+          <p class="muted">${t("champion.openHint")}</p>
         </div>
         <div class="champion-mark" aria-hidden="true">🏆</div>
       </div>
@@ -29,7 +30,7 @@ export function renderChampionSection(container, snapshot) {
   container.innerHTML = `
     <div class="section-head">
       <div>
-        <p class="kicker">Campeão</p>
+        <p class="kicker">${t("champion.kicker")}</p>
         <h2 id="championTitle">
           <img class="flag-lg" style="display:inline-block;vertical-align:-4px;margin-right:8px" src="${teamFlagUrl(champion)}" alt="">
           <span class="text-grad">${escapeHtml(teamLabel(champion))}</span>
@@ -38,7 +39,7 @@ export function renderChampionSection(container, snapshot) {
     </div>
     <div class="champion-card">
       <div>
-        <p class="kicker">Caminho pro título</p>
+        <p class="kicker">${t("champion.pathKicker")}</p>
         <div class="champion-path">${path}</div>
       </div>
       <div class="champion-mark is-lit" aria-hidden="true">🏆</div>
@@ -59,7 +60,7 @@ function buildPathRows(derived) {
       const opponentGoals = match.homeTeam === champion ? match.away : match.home;
       rows.push(`
         <div class="champion-path-row">
-          <span class="label">${ROUND_LABELS[round]}</span>
+          <span class="label">${escapeHtml(roundLabel(round))}</span>
           <div class="team-cell" style="display:flex;align-items:center;gap:8px;justify-content:space-between">
             <span style="display:flex;align-items:center;gap:6px">
               <img class="flag-lg" src="${teamFlagUrl(champion)}" alt="">
@@ -76,5 +77,5 @@ function buildPathRows(derived) {
     });
   }
 
-  return rows.join("") || `<p class="muted small">Sem partidas no caminho.</p>`;
+  return rows.join("") || `<p class="muted small">${t("champion.pathEmpty")}</p>`;
 }

@@ -33,7 +33,7 @@ export function deserialize(payload) {
       scores: isObject(decoded.scores) ? decoded.scores : {},
       knockoutMatches: isObject(decoded.knockoutMatches) ? sanitizeKnockout(decoded.knockoutMatches) : {},
       activeGroup: typeof decoded.activeGroup === "string" ? decoded.activeGroup : "A",
-      activeRound: typeof decoded.activeRound === "string" ? decoded.activeRound : "1ª rodada",
+      activeRound: typeof decoded.activeRound === "string" ? decoded.activeRound : "R1",
       groupView: decoded.groupView === "round" ? "round" : "group",
       knockoutPhase: typeof decoded.knockoutPhase === "string" ? decoded.knockoutPhase : "R32"
     };

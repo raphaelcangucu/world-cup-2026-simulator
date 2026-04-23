@@ -1,23 +1,25 @@
+import { t } from "../i18n/index.js";
+
 const STEPS = [
   {
     id: "groups",
     target: '[data-match-card] input[data-score="group"]',
-    title: "Preencha os placares",
-    body: "Digite números ou use o radio para declarar 1×0 rápido. Enter avança pro próximo campo.",
+    titleKey: "onboarding.groups.title",
+    bodyKey: "onboarding.groups.body",
     placement: "bottom"
   },
   {
     id: "table",
     target: "#groupsSection .group-table",
-    title: "Tabela ao vivo",
-    body: "Critérios oficiais de desempate (pontos, SG, head-to-head) entram automaticamente.",
+    titleKey: "onboarding.table.title",
+    bodyKey: "onboarding.table.body",
     placement: "top"
   },
   {
     id: "bracket",
     target: "#knockoutSection .bracket-stage",
-    title: "Bracket e campeão",
-    body: "Preencha o mata-mata para desbloquear o caminho até o título. Compartilhe quando terminar.",
+    titleKey: "onboarding.bracket.title",
+    bodyKey: "onboarding.bracket.body",
     placement: "top"
   }
 ];
@@ -50,17 +52,18 @@ function renderStep(onDone) {
   const tooltip = document.createElement("div");
   tooltip.className = "tooltip";
   tooltip.setAttribute("role", "tooltip");
+  const isLast = activeStepIdx === STEPS.length - 1;
   tooltip.innerHTML = `
     <div class="tooltip-head">
-      <strong>${step.title}</strong>
-      <button class="tooltip-close" type="button" aria-label="Fechar">×</button>
+      <strong>${t(step.titleKey)}</strong>
+      <button class="tooltip-close" type="button" aria-label="${t("onboarding.closeAria")}">×</button>
     </div>
-    <p class="small">${step.body}</p>
+    <p class="small">${t(step.bodyKey)}</p>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-      <span class="small muted">${activeStepIdx + 1} / ${STEPS.length}</span>
+      <span class="small muted">${t("onboarding.step", { current: activeStepIdx + 1, total: STEPS.length })}</span>
       <div style="display:flex;gap:6px">
-        ${activeStepIdx > 0 ? `<button class="btn btn--ghost btn--sm" type="button" data-nav="back">Voltar</button>` : ""}
-        <button class="btn btn--primary btn--sm" type="button" data-nav="next">${activeStepIdx === STEPS.length - 1 ? "Fechar" : "Próximo"}</button>
+        ${activeStepIdx > 0 ? `<button class="btn btn--ghost btn--sm" type="button" data-nav="back">${t("onboarding.back")}</button>` : ""}
+        <button class="btn btn--primary btn--sm" type="button" data-nav="next">${isLast ? t("onboarding.close") : t("onboarding.next")}</button>
       </div>
     </div>
   `;

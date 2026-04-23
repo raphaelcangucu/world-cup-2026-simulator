@@ -1,7 +1,8 @@
 import { teamLabel, teamFlagCode, teamFlagUrl } from "../data/teams.js";
-import { ROUND_LABELS } from "../data/bracket-template.js";
+import { roundLabel } from "../data/bracket-template.js";
 import { buildShareUrl } from "../state/serialize.js";
 import { announce, escapeHtml } from "../utils/dom.js";
+import { t } from "../i18n/index.js";
 
 const PNG_W = 1200;
 const PNG_H = 630;
@@ -42,17 +43,17 @@ async function drawShareImage(snapshot) {
   ctx.font = '700 20px "Inter", system-ui, sans-serif';
   ctx.fillStyle = green;
   ctx.textBaseline = "top";
-  ctx.fillText("MACRO.MARKETS · CENÁRIO DO TORNEIO", 80, 70);
+  ctx.fillText(t("share.canvas.kicker"), 80, 70);
 
   ctx.font = '800 60px "Inter", system-ui, sans-serif';
   ctx.fillStyle = grad;
-  ctx.fillText("Simulador Copa 2026", 80, 100);
+  ctx.fillText(t("share.canvas.title"), 80, 100);
 
   const champion = snapshot.derived.champion;
   if (champion) {
     ctx.font = '600 22px "Inter", system-ui, sans-serif';
     ctx.fillStyle = muted;
-    ctx.fillText("Campeão projetado", 80, 200);
+    ctx.fillText(t("share.canvas.championLabel"), 80, 200);
 
     ctx.font = '800 80px "Inter", system-ui, sans-serif';
     ctx.fillStyle = text;
@@ -79,15 +80,15 @@ async function drawShareImage(snapshot) {
   } else {
     ctx.font = '600 30px "Inter", system-ui, sans-serif';
     ctx.fillStyle = muted;
-    ctx.fillText("Monte seu cenário do torneio.", 80, 260);
+    ctx.fillText(t("share.canvas.emptyHeadline"), 80, 260);
     ctx.font = '500 22px "Inter", system-ui, sans-serif';
     ctx.fillStyle = muted;
-    ctx.fillText("Preencha placares da fase de grupos, veja classificados e simule o mata-mata.", 80, 310);
+    ctx.fillText(t("share.canvas.emptyBody"), 80, 310);
   }
 
   ctx.font = '500 18px "Inter", system-ui, sans-serif';
   ctx.fillStyle = muted;
-  ctx.fillText("gerado em macro.markets · compartilhe seu palpite", 80, PNG_H - 50);
+  ctx.fillText(t("share.canvas.footer"), 80, PNG_H - 50);
 
   ctx.strokeStyle = border;
   ctx.lineWidth = 2;
@@ -104,7 +105,7 @@ async function drawMiniBracket(ctx, snapshot, box) {
   ctx.font = '700 14px "Inter", system-ui, sans-serif';
   rounds.forEach((r, i) => {
     ctx.fillStyle = box.muted;
-    ctx.fillText(ROUND_LABELS[r].toUpperCase(), box.x + colW * i + 10, box.y);
+    ctx.fillText(roundLabel(r).toUpperCase(), box.x + colW * i + 10, box.y);
   });
 
   const flagCache = {};
@@ -156,7 +157,7 @@ function drawMiniRow(ctx, match, side, x, y, w, box, flagCache) {
   const team = side === "home" ? match.homeTeam : match.awayTeam;
   const score = side === "home" ? match.home : match.away;
   const isWinner = match.winner && match.winner === team;
-  const label = team && team !== "TBD" ? teamLabel(team) : "A definir";
+  const label = team && team !== "TBD" ? teamLabel(team) : t("bracket.tbd");
 
   if (isWinner) {
     ctx.fillStyle = "rgba(34,197,94,0.12)";
@@ -207,18 +208,18 @@ export async function openShareModal(snapshot) {
       <div class="modal">
         <div class="modal-head">
           <div>
-            <p class="kicker">Compartilhar</p>
-            <h2 id="shareTitle">Seu cenário</h2>
+            <p class="kicker">${t("share.modal.kicker")}</p>
+            <h2 id="shareTitle">${t("share.modal.title")}</h2>
           </div>
-          <button class="modal-close" type="button" aria-label="Fechar" data-modal-close>×</button>
+          <button class="modal-close" type="button" aria-label="${t("share.modal.close")}" data-modal-close>×</button>
         </div>
         <div id="sharePreview" style="display:grid;gap:10px;align-items:center;justify-items:center">
-          <div class="muted small" id="shareLoading">Gerando imagem…</div>
+          <div class="muted small" id="shareLoading">${t("share.modal.loading")}</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
-          <button class="btn btn--secondary" type="button" id="shareCopyLink">Copiar link</button>
-          <button class="btn btn--secondary" type="button" id="shareDownloadImg">Baixar imagem</button>
-          <button class="btn btn--primary" type="button" id="shareNative">Compartilhar</button>
+          <button class="btn btn--secondary" type="button" id="shareCopyLink">${t("share.modal.copyLink")}</button>
+          <button class="btn btn--secondary" type="button" id="shareDownloadImg">${t("share.modal.downloadImg")}</button>
+          <button class="btn btn--primary" type="button" id="shareNative">${t("share.modal.share")}</button>
         </div>
       </div>
     </div>
@@ -244,14 +245,14 @@ export async function openShareModal(snapshot) {
     canvas.style.border = "1px solid var(--divider)";
     preview.appendChild(canvas);
   } else {
-    preview.innerHTML = `<p class="muted small">Não foi possível gerar a prévia.</p>`;
+    preview.innerHTML = `<p class="muted small">${t("share.previewFailed")}</p>`;
   }
 
   const url = buildShareUrl(snapshot.state);
 
   root.querySelector("#shareCopyLink").addEventListener("click", async () => {
     await navigator.clipboard.writeText(url);
-    announce("Link copiado.");
+    announce(t("share.linkCopied"));
   });
 
   root.querySelector("#shareDownloadImg").addEventListener("click", () => {
@@ -261,12 +262,12 @@ export async function openShareModal(snapshot) {
       const href = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = href;
-      a.download = "simulador-copa-2026.png";
+      a.download = t("share.filename");
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(href);
-      announce("Imagem baixada.");
+      announce(t("share.imgDownloaded"));
     }, "image/png");
   });
 
@@ -275,19 +276,19 @@ export async function openShareModal(snapshot) {
       if (canvas && navigator.canShare) {
         const blob = await new Promise(r => canvas.toBlob(r, "image/png"));
         if (blob) {
-          const file = new File([blob], "simulador-copa-2026.png", { type: "image/png" });
+          const file = new File([blob], t("share.filename"), { type: "image/png" });
           if (navigator.canShare({ files: [file] })) {
-            await navigator.share({ files: [file], url, title: "Simulador Copa 2026" });
+            await navigator.share({ files: [file], url, title: t("share.nativeTitle") });
             return;
           }
         }
       }
       if (navigator.share) {
-        await navigator.share({ url, title: "Simulador Copa 2026" });
+        await navigator.share({ url, title: t("share.nativeTitle") });
         return;
       }
       await navigator.clipboard.writeText(url);
-      announce("Link copiado.");
+      announce(t("share.linkCopied"));
     } catch {
       /* cancelled or unsupported */
     }
@@ -298,8 +299,8 @@ export async function copyShareLink(snapshot) {
   const url = buildShareUrl(snapshot.state);
   try {
     await navigator.clipboard.writeText(url);
-    announce("Link copiado.");
+    announce(t("share.linkCopied"));
   } catch {
-    announce("Não foi possível copiar. Use Compartilhar.");
+    announce(t("share.linkCopyFailed"));
   }
 }

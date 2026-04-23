@@ -1,6 +1,7 @@
-import { ROUND_LABELS, ROUND_ORDER, NEXT_ROUNDS } from "../data/bracket-template.js";
+import { ROUND_ORDER, roundLabel } from "../data/bracket-template.js";
 import { teamFlagUrl, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
+import { t } from "../i18n/index.js";
 import { drawConnectors, observeResize } from "./bracket-connectors.js";
 
 const ROUND_COL_CLASS = {
@@ -23,13 +24,13 @@ export function renderBracketSection(container, snapshot, actions) {
   container.innerHTML = `
     <div class="section-head">
       <div>
-        <p class="kicker">Mata-mata</p>
-        <h2 id="knockoutTitle">Bracket</h2>
+        <p class="kicker">${t("bracket.kicker")}</p>
+        <h2 id="knockoutTitle">${t("bracket.title")}</h2>
       </div>
-      <p class="small muted">Digite o placar ou clique no radio para declarar vencedor. Radio aplica 1×0.</p>
+      <p class="small muted">${t("bracket.helper")}</p>
     </div>
     <div class="bracket-stage">
-      <div class="bracket-board" id="bracketBoard" role="region" aria-label="Bracket do mata-mata">
+      <div class="bracket-board" id="bracketBoard" role="region" aria-label="${t("bracket.regionLabel")}">
         <svg class="bracket-svg" id="bracketSvg" aria-hidden="true"></svg>
         ${renderDesktop(derived)}
       </div>
@@ -68,7 +69,7 @@ function renderDesktop(derived) {
     const list = matches[round]?.filter(m => visibleIds.includes(m.id)) || [];
     return `
       <div class="bracket-col ${ROUND_COL_CLASS[round]}" data-round="${round}" data-side="${side}">
-        <div class="bracket-col-label">${ROUND_LABELS[round]}</div>
+        <div class="bracket-col-label">${escapeHtml(roundLabel(round))}</div>
         ${list.map(m => `<div class="bracket-slot">${renderCompactCard(m, pathSet)}</div>`).join("")}
       </div>
     `;
@@ -83,7 +84,7 @@ function renderDesktop(derived) {
 
   const finalCol = `
     <div class="bracket-col is-final" data-round="F" data-side="F">
-      <div class="bracket-col-label">Final</div>
+      <div class="bracket-col-label">${escapeHtml(roundLabel("F"))}</div>
       <div class="bracket-slot">
         ${renderFinal(matches.F[0], derived.champion, pathSet)}
       </div>
@@ -106,7 +107,7 @@ function renderFinal(match, champion, pathSet) {
     <div class="bracket-final">
       <div class="trophy ${isChampion ? "is-lit" : ""}" aria-hidden="true">🏆</div>
       ${renderCompactCard(match, pathSet)}
-      ${isChampion ? `<div class="champion-tag">Campeão<br>${escapeHtml(teamLabel(champion))}</div>` : ""}
+      ${isChampion ? `<div class="champion-tag">${escapeHtml(t("champion.champTag"))}<br>${escapeHtml(teamLabel(champion))}</div>` : ""}
     </div>
   `;
 }
@@ -125,7 +126,7 @@ function renderCompactCard(match, pathSet) {
       ${renderCompactRow(match, "home")}
       <div class="divider-thin"></div>
       ${renderCompactRow(match, "away")}
-      ${match.tied ? `<div class="tied-warning">Empate — escolha vencedor</div>` : ""}
+      ${match.tied ? `<div class="tied-warning">${escapeHtml(t("bracket.tiedWarning"))}</div>` : ""}
     </div>
   `;
 }
@@ -151,7 +152,7 @@ function renderCompactRow(match, side) {
       <img class="flag-compact" src="${teamFlagUrl(team)}" alt="" loading="lazy">
       <span class="name-compact">${escapeHtml(label)}</span>
       <span class="radio-wrap">
-        <input type="radio" name="winner-${escapeHtml(match.id)}" data-pick="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}" ${isWinner ? "checked" : ""} ${isTbd ? "disabled" : ""} aria-label="Escolher ${escapeHtml(label)} vencedor">
+        <input type="radio" name="winner-${escapeHtml(match.id)}" data-pick="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}" ${isWinner ? "checked" : ""} ${isTbd ? "disabled" : ""} aria-label="${escapeHtml(t("bracket.pickWinner", { team: label }))}">
         <span class="radio-dot" aria-hidden="true"></span>
       </span>
       <input id="score-${id}" class="input input--score-sm" type="number" min="0" step="1" inputmode="numeric"
@@ -159,7 +160,7 @@ function renderCompactRow(match, side) {
              data-score="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}"
              value="${escapeHtml(score)}"
              ${isTbd ? "disabled" : ""}
-             aria-label="Gols de ${escapeHtml(label)}">
+             aria-label="${escapeHtml(t("bracket.goalsOf", { team: label }))}">
     </label>
   `;
 }
@@ -171,16 +172,16 @@ function renderMobile(derived, currentPhase) {
 
   return `
     <div class="bracket-mobile">
-      <div class="bracket-mobile-tabs" role="tablist" aria-label="Fase do mata-mata">
+      <div class="bracket-mobile-tabs" role="tablist" aria-label="${t("bracket.mobileTabsLabel")}">
         ${ROUND_ORDER.map(r => `
           <button role="tab" type="button" class="chip ${r === currentPhase ? "is-active" : ""}"
                   data-phase="${r}" aria-selected="${r === currentPhase}">
-            ${ROUND_LABELS[r]}
+            ${escapeHtml(roundLabel(r))}
           </button>`).join("")}
       </div>
       <div class="bracket-mobile-phase-head">
-        <span class="kicker">${ROUND_LABELS[currentPhase]}</span>
-        <span class="small">${list.filter(m => m.winner).length}/${list.length} decididos</span>
+        <span class="kicker">${escapeHtml(roundLabel(currentPhase))}</span>
+        <span class="small">${t("bracket.decided", { done: list.filter(m => m.winner).length, total: list.length })}</span>
       </div>
       <div class="bracket-mobile-list">
         ${list.map(m => renderMobileMatch(m, pathSet)).join("")}
@@ -192,7 +193,9 @@ function renderMobile(derived, currentPhase) {
 function renderMobileMatch(match, pathSet) {
   const isPath = pathSet.has(match.id);
   const classes = ["bracket-mobile-card", isPath ? "is-path" : "", match.tied ? "is-tied" : ""].filter(Boolean).join(" ");
-  const feedsLabel = match.feedsFrom ? `Vindo de ${match.feedsFrom.join(" · ")}` : "";
+  const feedsLabel = match.feedsFrom
+    ? t("bracket.feedsFrom", { labels: match.feedsFrom.join(" · ") })
+    : "";
   const breadcrumb = feedsLabel
     ? `${escapeHtml(match.label)} · <span>${escapeHtml(feedsLabel)}</span>`
     : escapeHtml(match.label);
@@ -202,7 +205,7 @@ function renderMobileMatch(match, pathSet) {
       <div class="bracket-mobile-breadcrumb">${breadcrumb}</div>
       ${renderMobileRow(match, "home")}
       ${renderMobileRow(match, "away")}
-      ${match.tied ? `<div class="tied-warning">Empate — escolha vencedor</div>` : ""}
+      ${match.tied ? `<div class="tied-warning">${escapeHtml(t("bracket.tiedWarning"))}</div>` : ""}
     </article>
   `;
 }
@@ -225,7 +228,7 @@ function renderMobileRow(match, side) {
       <img class="flag-lg" src="${teamFlagUrl(team)}" alt="" loading="lazy">
       <span class="name-compact">${escapeHtml(label)}</span>
       <span class="radio-wrap">
-        <input type="radio" name="winner-m-${escapeHtml(match.id)}" data-pick="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}" ${isWinner ? "checked" : ""} ${isTbd ? "disabled" : ""} aria-label="Escolher ${escapeHtml(label)} vencedor">
+        <input type="radio" name="winner-m-${escapeHtml(match.id)}" data-pick="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}" ${isWinner ? "checked" : ""} ${isTbd ? "disabled" : ""} aria-label="${escapeHtml(t("bracket.pickWinner", { team: label }))}">
         <span class="radio-dot" aria-hidden="true"></span>
       </span>
       <input id="${id}" class="input" type="number" min="0" step="1" inputmode="numeric"
@@ -233,7 +236,7 @@ function renderMobileRow(match, side) {
              data-score="knockout" data-match="${escapeHtml(match.id)}" data-side="${side}"
              value="${escapeHtml(score)}"
              ${isTbd ? "disabled" : ""}
-             aria-label="Gols de ${escapeHtml(label)}">
+             aria-label="${escapeHtml(t("bracket.goalsOf", { team: label }))}">
     </label>
   `;
 }

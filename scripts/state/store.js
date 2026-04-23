@@ -1,6 +1,6 @@
 import { GROUP_KEYS } from "../data/groups.js";
 import { getMatchId } from "../data/fixtures.js";
-import { R32_TEMPLATE, ROUND_ORDER, ROUND_LABELS } from "../data/bracket-template.js";
+import { R32_TEMPLATE, ROUND_ORDER } from "../data/bracket-template.js";
 import { computeAllGroupTables, isReady } from "../engine/standings.js";
 import { buildSeeds, addThirdSeeds, rankThirds, pickBestThirds, resolveThirdAssignments } from "../engine/qualifiers.js";
 import { buildKnockoutMatches, championPath, getChampion, countMatches, countDecided } from "../engine/bracket-engine.js";
@@ -15,7 +15,7 @@ function defaultState() {
     scores: {},
     knockoutMatches: {},
     activeGroup: "A",
-    activeRound: "1ª rodada",
+    activeRound: "R1",
     groupView: "group",
     knockoutPhase: "R32",
     theme: "dark",
@@ -60,6 +60,18 @@ function validGroup(key) {
   return GROUP_KEYS.includes(key);
 }
 
+const LEGACY_ROUND_MAP = {
+  "1ª rodada": "R1",
+  "2ª rodada": "R2",
+  "3ª rodada": "R3"
+};
+
+function normalizeRoundKey(value) {
+  if (value in LEGACY_ROUND_MAP) return LEGACY_ROUND_MAP[value];
+  if (["R1", "R2", "R3"].includes(value)) return value;
+  return "R1";
+}
+
 function sanitizeScoreValue(value) {
   if (value === "" || value == null) return "";
   const n = Number(value);
@@ -81,7 +93,9 @@ export function createStore({ fixtures, thirdMap }) {
     state.scores = ensureGroupScores(fixtures, { ...state.scores, ...saved.scores });
     state.knockoutMatches = ensureKnockoutRecords({ ...state.knockoutMatches, ...saved.knockoutMatches });
     if (validGroup(saved.activeGroup)) state.activeGroup = saved.activeGroup;
-    if (typeof saved.activeRound === "string") state.activeRound = saved.activeRound;
+    if (typeof saved.activeRound === "string") {
+      state.activeRound = normalizeRoundKey(saved.activeRound);
+    }
     if (saved.groupView === "round" || saved.groupView === "group") state.groupView = saved.groupView;
     if (ROUND_ORDER.includes(saved.knockoutPhase)) state.knockoutPhase = saved.knockoutPhase;
   }
@@ -231,8 +245,9 @@ export function createStore({ fixtures, thirdMap }) {
   }
 
   function setActiveRound(round) {
-    if (typeof round !== "string" || round === state.activeRound) return;
-    state.activeRound = round;
+    const next = normalizeRoundKey(round);
+    if (next === state.activeRound) return;
+    state.activeRound = next;
     notify();
   }
 
@@ -309,5 +324,3 @@ export function createStore({ fixtures, thirdMap }) {
     reset
   };
 }
-
-export { ROUND_LABELS };

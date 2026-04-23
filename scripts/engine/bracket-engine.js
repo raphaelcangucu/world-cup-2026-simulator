@@ -1,4 +1,4 @@
-import { R32_TEMPLATE, NEXT_ROUNDS, ROUND_LABELS, ROUND_ORDER, isLeftSide } from "../data/bracket-template.js";
+import { R32_TEMPLATE, NEXT_ROUNDS, ROUND_ORDER, isLeftSide, roundLabel } from "../data/bracket-template.js";
 import { isReady } from "./standings.js";
 
 const TBD = "TBD";
@@ -46,7 +46,7 @@ function buildRound32(seeds, thirdAssignments, knockoutState) {
     const match = {
       id: template.id,
       round: "R32",
-      label: template.label,
+      label: `${roundLabel("R32")} · ${template.id.split("-")[1]}`,
       side: template.side,
       homeTeam,
       awayTeam,
@@ -70,7 +70,7 @@ function buildLaterRound(code, rounds, knockoutState) {
     const match = {
       id,
       round: code,
-      label: `${ROUND_LABELS[code]} · ${index + 1}`,
+      label: `${roundLabel(code)} · ${index + 1}`,
       side: isLeftSide(id) === true ? "L" : isLeftSide(id) === false ? "R" : "F",
       feedsFrom: [pair[0], pair[1]],
       homeTeam,

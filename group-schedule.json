@@ -11,7 +11,10 @@
     "awayKey": "South Africa",
     "venue": "Cidade do México, no México",
     "localTime": "13h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "mexico_city",
+    "dateIso": "2026-06-11",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -25,7 +28,10 @@
     "awayKey": "Czechia",
     "venue": "Guadalajara",
     "localTime": "20h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "guadalajara",
+    "dateIso": "2026-06-11",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -39,7 +45,10 @@
     "awayKey": "Bosnia and Herzegovina",
     "venue": "Toronto, no Canadá",
     "localTime": "15h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "toronto",
+    "dateIso": "2026-06-12",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -53,7 +62,10 @@
     "awayKey": "Paraguay",
     "venue": "Los Angeles, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "los_angeles",
+    "dateIso": "2026-06-12",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -67,7 +79,10 @@
     "awayKey": "Switzerland",
     "venue": "Santa Clara (região da Baía de San Francisco), nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "bay_area",
+    "dateIso": "2026-06-13",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -81,7 +96,10 @@
     "awayKey": "Morocco",
     "venue": "Nova York/Nova Jersey, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "new_york",
+    "dateIso": "2026-06-13",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -95,7 +113,10 @@
     "awayKey": "Scotland",
     "venue": "Boston, nos EUA",
     "localTime": "21h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "boston",
+    "dateIso": "2026-06-13",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -109,7 +130,10 @@
     "awayKey": "Türkiye",
     "venue": "Vancouver, no Canadá",
     "localTime": "21h00",
-    "brasiliaTime": "1h00 de 14 de junho"
+    "brasiliaTime": "1h00 de 14 de junho",
+    "venueKey": "vancouver",
+    "dateIso": "2026-06-13",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -123,7 +147,10 @@
     "awayKey": "Curaçao",
     "venue": "Houston, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "14h00"
+    "brasiliaTime": "14h00",
+    "venueKey": "houston",
+    "dateIso": "2026-06-14",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -137,7 +164,10 @@
     "awayKey": "Ecuador",
     "venue": "Filadélfia, nos EUA",
     "localTime": "19h00",
-    "brasiliaTime": "20h00"
+    "brasiliaTime": "20h00",
+    "venueKey": "philadelphia",
+    "dateIso": "2026-06-14",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -151,7 +181,10 @@
     "awayKey": "Japan",
     "venue": "Dallas, nos EUA",
     "localTime": "15h00",
-    "brasiliaTime": "17h00"
+    "brasiliaTime": "17h00",
+    "venueKey": "dallas",
+    "dateIso": "2026-06-14",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -165,7 +198,10 @@
     "awayKey": "Tunisia",
     "venue": "Monterrey, no México",
     "localTime": "20h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "monterrey",
+    "dateIso": "2026-06-14",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -179,7 +215,10 @@
     "awayKey": "Cape Verde",
     "venue": "Atlanta, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "13h00"
+    "brasiliaTime": "13h00",
+    "venueKey": "atlanta",
+    "dateIso": "2026-06-15",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -193,7 +232,10 @@
     "awayKey": "Uruguay",
     "venue": "Miami, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "miami",
+    "dateIso": "2026-06-15",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -207,7 +249,10 @@
     "awayKey": "Egypt",
     "venue": "Seattle, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "seattle",
+    "dateIso": "2026-06-15",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -221,7 +266,10 @@
     "awayKey": "New Zealand",
     "venue": "Los Angeles, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "los_angeles",
+    "dateIso": "2026-06-15",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -235,7 +283,10 @@
     "awayKey": "Jordan",
     "venue": "Santa Clara (região da Baía de San Francisco), nos EUA",
     "localTime": "21h00",
-    "brasiliaTime": "1h00 de 17 de junho"
+    "brasiliaTime": "1h00 de 17 de junho",
+    "venueKey": "bay_area",
+    "dateIso": "2026-06-16",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -249,7 +300,10 @@
     "awayKey": "Senegal",
     "venue": "Nova York/Nova Jersey, nos EUA",
     "localTime": "15h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "new_york",
+    "dateIso": "2026-06-16",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -263,7 +317,10 @@
     "awayKey": "Norway",
     "venue": "Boston, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "boston",
+    "dateIso": "2026-06-16",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -277,7 +334,10 @@
     "awayKey": "Algeria",
     "venue": "Kansas City, nos EUA",
     "localTime": "20h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "kansas_city",
+    "dateIso": "2026-06-16",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -291,7 +351,10 @@
     "awayKey": "DR Congo",
     "venue": "Houston, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "14h00"
+    "brasiliaTime": "14h00",
+    "venueKey": "houston",
+    "dateIso": "2026-06-17",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -305,7 +368,10 @@
     "awayKey": "Croatia",
     "venue": "Dallas, nos EUA",
     "localTime": "15h00",
-    "brasiliaTime": "17h00"
+    "brasiliaTime": "17h00",
+    "venueKey": "dallas",
+    "dateIso": "2026-06-17",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -319,7 +385,10 @@
     "awayKey": "Panama",
     "venue": "Toronto, no Canadá",
     "localTime": "19h00",
-    "brasiliaTime": "20h00"
+    "brasiliaTime": "20h00",
+    "venueKey": "toronto",
+    "dateIso": "2026-06-17",
+    "roundKey": "R1"
   },
   {
     "round": "1ª rodada",
@@ -333,7 +402,10 @@
     "awayKey": "Colombia",
     "venue": "Cidade do México, no México",
     "localTime": "20h00",
-    "brasiliaTime": "21h00"
+    "brasiliaTime": "21h00",
+    "venueKey": "mexico_city",
+    "dateIso": "2026-06-17",
+    "roundKey": "R1"
   },
   {
     "round": "2ª rodada",
@@ -347,7 +419,10 @@
     "awayKey": "South Africa",
     "venue": "Atlanta, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "13h00"
+    "brasiliaTime": "13h00",
+    "venueKey": "atlanta",
+    "dateIso": "2026-06-18",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -361,7 +436,10 @@
     "awayKey": "Bosnia and Herzegovina",
     "venue": "Los Angeles, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "los_angeles",
+    "dateIso": "2026-06-18",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -375,7 +453,10 @@
     "awayKey": "Qatar",
     "venue": "Vancouver, no Canadá",
     "localTime": "15h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "vancouver",
+    "dateIso": "2026-06-18",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -389,7 +470,10 @@
     "awayKey": "South Korea",
     "venue": "Guadalajara, no México",
     "localTime": "19h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "guadalajara",
+    "dateIso": "2026-06-18",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -403,7 +487,10 @@
     "awayKey": "Paraguay",
     "venue": "Santa Clara (região da Baía de San Francisco), nos EUA",
     "localTime": "20h00",
-    "brasiliaTime": "0h00"
+    "brasiliaTime": "0h00",
+    "venueKey": "bay_area",
+    "dateIso": "2026-06-19",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -417,7 +504,10 @@
     "awayKey": "Australia",
     "venue": "Seattle, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "seattle",
+    "dateIso": "2026-06-19",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -431,7 +521,10 @@
     "awayKey": "Morocco",
     "venue": "Boston, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "boston",
+    "dateIso": "2026-06-19",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -445,7 +538,10 @@
     "awayKey": "Haiti",
     "venue": "Filadélfia, nos EUA",
     "localTime": "20h30",
-    "brasiliaTime": "21h30"
+    "brasiliaTime": "21h30",
+    "venueKey": "philadelphia",
+    "dateIso": "2026-06-19",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -459,7 +555,10 @@
     "awayKey": "Japan",
     "venue": "Monterrey, no México",
     "localTime": "20h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "monterrey",
+    "dateIso": "2026-06-20",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -473,7 +572,10 @@
     "awayKey": "Sweden",
     "venue": "Houston, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "14h00"
+    "brasiliaTime": "14h00",
+    "venueKey": "houston",
+    "dateIso": "2026-06-20",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -487,7 +589,10 @@
     "awayKey": "Ivory Coast",
     "venue": "Toronto, no Canadá",
     "localTime": "16h00",
-    "brasiliaTime": "17h00"
+    "brasiliaTime": "17h00",
+    "venueKey": "toronto",
+    "dateIso": "2026-06-20",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -501,7 +606,10 @@
     "awayKey": "Curaçao",
     "venue": "Kansas City, nos EUA",
     "localTime": "19h00",
-    "brasiliaTime": "21h00"
+    "brasiliaTime": "21h00",
+    "venueKey": "kansas_city",
+    "dateIso": "2026-06-20",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -515,7 +623,10 @@
     "awayKey": "Saudi Arabia",
     "venue": "Atlanta, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "13h00"
+    "brasiliaTime": "13h00",
+    "venueKey": "atlanta",
+    "dateIso": "2026-01-21",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -529,7 +640,10 @@
     "awayKey": "Iran",
     "venue": "Los Angeles, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "los_angeles",
+    "dateIso": "2026-01-21",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -543,7 +657,10 @@
     "awayKey": "Cape Verde",
     "venue": "Miami, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "miami",
+    "dateIso": "2026-01-21",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -557,7 +674,10 @@
     "awayKey": "Egypt",
     "venue": "Vancouver, no Canadá",
     "localTime": "18h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "vancouver",
+    "dateIso": "2026-01-21",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -571,7 +691,10 @@
     "awayKey": "Austria",
     "venue": "Dallas, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "14h00"
+    "brasiliaTime": "14h00",
+    "venueKey": "dallas",
+    "dateIso": "2026-01-22",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -585,7 +708,10 @@
     "awayKey": "Iraq",
     "venue": "Filadélfia, nos EUA",
     "localTime": "17h00",
-    "brasiliaTime": "18h00"
+    "brasiliaTime": "18h00",
+    "venueKey": "philadelphia",
+    "dateIso": "2026-01-22",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -599,7 +725,10 @@
     "awayKey": "Senegal",
     "venue": "Nova York/Nova Jersey, nos EUA",
     "localTime": "20h00",
-    "brasiliaTime": "21h00"
+    "brasiliaTime": "21h00",
+    "venueKey": "new_york",
+    "dateIso": "2026-01-22",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -613,7 +742,10 @@
     "awayKey": "Algeria",
     "venue": "Santa Clara (região da Baía de San Francisco), nos EUA",
     "localTime": "20h00",
-    "brasiliaTime": "0h00 de 23 de junho"
+    "brasiliaTime": "0h00 de 23 de junho",
+    "venueKey": "bay_area",
+    "dateIso": "2026-01-22",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -627,7 +759,10 @@
     "awayKey": "Uzbekistan",
     "venue": "Houston, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "14h00"
+    "brasiliaTime": "14h00",
+    "venueKey": "houston",
+    "dateIso": "2026-06-23",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -641,7 +776,10 @@
     "awayKey": "Ghana",
     "venue": "Boston, nos EUA",
     "localTime": "16h00",
-    "brasiliaTime": "17h00"
+    "brasiliaTime": "17h00",
+    "venueKey": "boston",
+    "dateIso": "2026-06-23",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -655,7 +793,10 @@
     "awayKey": "Croatia",
     "venue": "Toronto, no Canadá",
     "localTime": "19h00",
-    "brasiliaTime": "20h00"
+    "brasiliaTime": "20h00",
+    "venueKey": "toronto",
+    "dateIso": "2026-06-23",
+    "roundKey": "R2"
   },
   {
     "round": "2ª rodada",
@@ -669,7 +810,10 @@
     "awayKey": "DR Congo",
     "venue": "Guadalajara, no México",
     "localTime": "20h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "guadalajara",
+    "dateIso": "2026-06-23",
+    "roundKey": "R2"
   },
   {
     "round": "3ª rodada",
@@ -683,7 +827,10 @@
     "awayKey": "Canada",
     "venue": "Vancouver, no Canadá",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "vancouver",
+    "dateIso": "2026-06-24",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -697,7 +844,10 @@
     "awayKey": "Qatar",
     "venue": "Seattle, nos EUA",
     "localTime": "12h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "seattle",
+    "dateIso": "2026-06-24",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -711,7 +861,10 @@
     "awayKey": "Brazil",
     "venue": "Miami, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "miami",
+    "dateIso": "2026-06-24",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -725,7 +878,10 @@
     "awayKey": "Haiti",
     "venue": "Atlanta, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "19h00"
+    "brasiliaTime": "19h00",
+    "venueKey": "atlanta",
+    "dateIso": "2026-06-24",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -739,7 +895,10 @@
     "awayKey": "Mexico",
     "venue": "Cidade do México, no México",
     "localTime": "19h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "mexico_city",
+    "dateIso": "2026-06-24",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -753,7 +912,10 @@
     "awayKey": "South Korea",
     "venue": "Monterrey, no México",
     "localTime": "19h00",
-    "brasiliaTime": "22h00"
+    "brasiliaTime": "22h00",
+    "venueKey": "monterrey",
+    "dateIso": "2026-06-24",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -767,7 +929,10 @@
     "awayKey": "Germany",
     "venue": "Nova York/Nova Jersey, nos EUA",
     "localTime": "16h00",
-    "brasiliaTime": "17h00"
+    "brasiliaTime": "17h00",
+    "venueKey": "new_york",
+    "dateIso": "2026-06-25",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -781,7 +946,10 @@
     "awayKey": "Ivory Coast",
     "venue": "Filadélfia, nos EUA",
     "localTime": "16h00",
-    "brasiliaTime": "17h00"
+    "brasiliaTime": "17h00",
+    "venueKey": "philadelphia",
+    "dateIso": "2026-06-25",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -795,7 +963,10 @@
     "awayKey": "Sweden",
     "venue": "Dallas, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "20h00"
+    "brasiliaTime": "20h00",
+    "venueKey": "dallas",
+    "dateIso": "2026-06-25",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -809,7 +980,10 @@
     "awayKey": "Netherlands",
     "venue": "Kansas City, nos EUA",
     "localTime": "18h00",
-    "brasiliaTime": "20h00"
+    "brasiliaTime": "20h00",
+    "venueKey": "kansas_city",
+    "dateIso": "2026-06-25",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -823,7 +997,10 @@
     "awayKey": "USA",
     "venue": "Los Angeles, nos EUA",
     "localTime": "19h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "los_angeles",
+    "dateIso": "2026-06-25",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -837,7 +1014,10 @@
     "awayKey": "Australia",
     "venue": "Santa Clara (região da Baía de San Francisco), nos EUA",
     "localTime": "19h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "bay_area",
+    "dateIso": "2026-06-25",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -851,7 +1031,10 @@
     "awayKey": "France",
     "venue": "Boston, nos EUA",
     "localTime": "15h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "boston",
+    "dateIso": "2026-06-26",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -865,7 +1048,10 @@
     "awayKey": "Iraq",
     "venue": "Toronto, no Canadá",
     "localTime": "15h00",
-    "brasiliaTime": "16h00"
+    "brasiliaTime": "16h00",
+    "venueKey": "toronto",
+    "dateIso": "2026-06-26",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -879,7 +1065,10 @@
     "awayKey": "Saudi Arabia",
     "venue": "Houston, nos EUA",
     "localTime": "19h00",
-    "brasiliaTime": "21h00"
+    "brasiliaTime": "21h00",
+    "venueKey": "houston",
+    "dateIso": "2026-06-26",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -893,7 +1082,10 @@
     "awayKey": "Spain",
     "venue": "Guadalajara, no México",
     "localTime": "18h00",
-    "brasiliaTime": "21h00"
+    "brasiliaTime": "21h00",
+    "venueKey": "guadalajara",
+    "dateIso": "2026-06-26",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -907,7 +1099,10 @@
     "awayKey": "Iran",
     "venue": "Seattle, nos EUA",
     "localTime": "20h00",
-    "brasiliaTime": "0h00 de 27 de junho"
+    "brasiliaTime": "0h00 de 27 de junho",
+    "venueKey": "seattle",
+    "dateIso": "2026-06-26",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -921,7 +1116,10 @@
     "awayKey": "Belgium",
     "venue": "Vancouver, no Canadá",
     "localTime": "20h00",
-    "brasiliaTime": "0h00 de 27 de junho"
+    "brasiliaTime": "0h00 de 27 de junho",
+    "venueKey": "vancouver",
+    "dateIso": "2026-06-26",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -935,7 +1133,10 @@
     "awayKey": "England",
     "venue": "Nova York/Nova Jersey, nos EUA",
     "localTime": "17h00",
-    "brasiliaTime": "18h00"
+    "brasiliaTime": "18h00",
+    "venueKey": "new_york",
+    "dateIso": "2026-06-27",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -949,7 +1150,10 @@
     "awayKey": "Ghana",
     "venue": "Filadélfia, nos EUA",
     "localTime": "17h00",
-    "brasiliaTime": "18h00"
+    "brasiliaTime": "18h00",
+    "venueKey": "philadelphia",
+    "dateIso": "2026-06-27",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -963,7 +1167,10 @@
     "awayKey": "Portugal",
     "venue": "Miami, nos EUA",
     "localTime": "19h30",
-    "brasiliaTime": "20h30"
+    "brasiliaTime": "20h30",
+    "venueKey": "miami",
+    "dateIso": "2026-06-27",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -977,7 +1184,10 @@
     "awayKey": "Uzbekistan",
     "venue": "Atlanta, nos EUA",
     "localTime": "19h30",
-    "brasiliaTime": "20h30"
+    "brasiliaTime": "20h30",
+    "venueKey": "atlanta",
+    "dateIso": "2026-06-27",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -991,7 +1201,10 @@
     "awayKey": "Austria",
     "venue": "Kansas City, nos EUA",
     "localTime": "21h00",
-    "brasiliaTime": "23h00"
+    "brasiliaTime": "23h00",
+    "venueKey": "kansas_city",
+    "dateIso": "2026-06-27",
+    "roundKey": "R3"
   },
   {
     "round": "3ª rodada",
@@ -1005,6 +1218,9 @@
     "awayKey": "Argentina",
     "venue": "Dallas, nos EUA",
     "localTime": "21h00",
-    "brasiliaTime": "23h00 de 28 de junho"
+    "brasiliaTime": "23h00 de 28 de junho",
+    "venueKey": "dallas",
+    "dateIso": "2026-06-27",
+    "roundKey": "R3"
   }
 ]

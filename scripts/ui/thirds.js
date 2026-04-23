@@ -1,6 +1,7 @@
 import { GROUP_KEYS, GROUPS } from "../data/groups.js";
 import { teamFlagUrl, teamLabel } from "../data/teams.js";
 import { escapeHtml } from "../utils/dom.js";
+import { t } from "../i18n/index.js";
 
 const prevPositions = new Map();
 
@@ -10,8 +11,8 @@ export function renderQualifiersSection(container, snapshot) {
   container.innerHTML = `
     <div class="section-head">
       <div>
-        <p class="kicker">Classificados</p>
-        <h2 id="qualifiersTitle">Seeds e melhores terceiros</h2>
+        <p class="kicker">${t("qualifiers.kicker")}</p>
+        <h2 id="qualifiersTitle">${t("qualifiers.title")}</h2>
       </div>
     </div>
     <div class="qualifiers-grid">
@@ -31,19 +32,19 @@ function renderSeedsCard(derived) {
     const second = table[1]?.team;
     return `
       <div class="seed-row">
-        <span class="kicker">Grupo ${group}</span>
+        <span class="kicker">${t("groups.groupN", { g: group })}</span>
         <div class="team-cell">
           <img class="flag-lg" src="${teamFlagUrl(first)}" alt="" loading="lazy">
           <span class="team-name">${escapeHtml(teamLabel(first))}</span>
         </div>
-        <span class="small">2º ${escapeHtml(teamLabel(second))}</span>
+        <span class="small">${escapeHtml(t("qualifiers.seeds.second", { team: teamLabel(second) }))}</span>
       </div>`;
   }).join("");
 
   return `
     <article class="qualifiers-card">
-      <p class="kicker">Primeiros e segundos</p>
-      <h3>Classificados diretos</h3>
+      <p class="kicker">${t("qualifiers.seeds.kicker")}</p>
+      <h3>${t("qualifiers.seeds.title")}</h3>
       <div class="seed-list">${rows}</div>
     </article>
   `;
@@ -60,7 +61,7 @@ function renderThirdsCard(derived, changedTeams) {
       index < cutoff ? "is-qualified" : "is-dropped",
       changedTeams.includes(row.team) ? "flash-qualify" : ""
     ].filter(Boolean).join(" ");
-    const cutBefore = index === cutoff ? '<div class="thirds-cut">Linha de corte</div>' : "";
+    const cutBefore = index === cutoff ? `<div class="thirds-cut">${t("qualifiers.thirds.cut")}</div>` : "";
     return `
       ${cutBefore}
       <div class="${classes}" data-third-team="${escapeHtml(row.team)}">
@@ -68,16 +69,20 @@ function renderThirdsCard(derived, changedTeams) {
         <div class="team-cell">
           <img class="flag-lg" src="${teamFlagUrl(row.team)}" alt="" loading="lazy">
           <span class="team-name">${escapeHtml(teamLabel(row.team))}</span>
-          <span class="small">Grupo ${row.group}</span>
+          <span class="small">${t("groups.groupN", { g: row.group })}</span>
         </div>
-        <span class="small mono">${row.pts} pts · SG ${row.gd >= 0 ? "+" + row.gd : row.gd} · GP ${row.gf}</span>
+        <span class="small mono">${t("qualifiers.thirds.stats", {
+          pts: row.pts,
+          gd: row.gd >= 0 ? "+" + row.gd : row.gd,
+          gf: row.gf
+        })}</span>
       </div>`;
   }).join("");
 
   return `
     <article class="qualifiers-card">
-      <p class="kicker">Melhores terceiros</p>
-      <h3>${bestCount}/${cutoff} entram</h3>
+      <p class="kicker">${t("qualifiers.thirds.kicker")}</p>
+      <h3>${t("qualifiers.thirds.title", { best: bestCount, cutoff })}</h3>
       <div class="thirds-list" id="thirdsList">${rowsHtml}</div>
     </article>
   `;
@@ -91,20 +96,24 @@ function renderMappingCard(derived) {
   const content = entries.length
     ? entries.map(([slot, seed]) => `
         <div class="seed-row">
-          <span class="kicker">Slot ${slot}</span>
+          <span class="kicker">${t("qualifiers.mapping.slot", { slot })}</span>
           <div class="team-cell">
             <img class="flag-lg" src="${teamFlagUrl(seeds[seed])}" alt="" loading="lazy">
             <span class="team-name">${escapeHtml(teamLabel(seeds[seed]))}</span>
           </div>
           <span class="small">${escapeHtml(seed)}</span>
         </div>`).join("")
-    : `<p class="muted small">Preencha mais jogos para travar o chaveamento.</p>`;
+    : `<p class="muted small">${t("qualifiers.mapping.empty")}</p>`;
+
+  const groupsText = derived.qualifiedGroupsKey
+    ? derived.qualifiedGroupsKey.split("").join(" · ")
+    : t("qualifiers.mapping.pending");
 
   return `
     <article class="qualifiers-card">
-      <p class="kicker">Mapa oficial FIFA</p>
-      <h3>Slots dos terceiros</h3>
-      <p class="small">Grupos com terceiros classificados: <strong>${derived.qualifiedGroupsKey ? derived.qualifiedGroupsKey.split("").join(" · ") : "Aguardando"}</strong></p>
+      <p class="kicker">${t("qualifiers.mapping.kicker")}</p>
+      <h3>${t("qualifiers.mapping.title")}</h3>
+      <p class="small">${t("qualifiers.mapping.groupsQualified", { groups: groupsText })}</p>
       <div class="seed-list">${content}</div>
     </article>
   `;

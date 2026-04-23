@@ -12,8 +12,25 @@ import { renderChampionSection } from "./ui/champion.js";
 import { openShareModal, copyShareLink } from "./ui/share.js";
 import { startOnboarding } from "./ui/onboarding.js";
 import { readTheme } from "./state/storage.js";
+import { t, applyDocumentLang, onLangChange } from "./i18n/index.js";
+
+function applyStaticTranslations() {
+  document.title = t("app.title");
+  const setMeta = (selector, attr, value) => {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, value);
+  };
+  setMeta('meta[name="description"]', "content", t("app.description"));
+  setMeta('meta[property="og:title"]', "content", t("app.og.title"));
+  setMeta('meta[property="og:description"]', "content", t("app.og.description"));
+  const skipLink = document.querySelector(".skip-link");
+  if (skipLink) skipLink.textContent = t("app.skipLink");
+}
 
 async function bootstrap() {
+  applyDocumentLang();
+  applyStaticTranslations();
+
   const [fixtures, thirdMap] = await Promise.all([loadFixtures(), loadThirdMap()]);
   const store = createStore({ fixtures, thirdMap });
 
@@ -46,6 +63,18 @@ async function bootstrap() {
     copyLink: () => copyShareLink(store.getSnapshot())
   };
 
+  const renderAll = () => {
+    const snapshot = store.getSnapshot();
+    const fullSnapshot = { ...snapshot, changes: { changedTeams: [] } };
+    applyTheme(snapshot.state.theme);
+    applyStaticTranslations();
+    renderHero(heroEl, fullSnapshot, actions);
+    renderGroupsSection(groupsEl, fullSnapshot, actions, fixtures);
+    renderQualifiersSection(qualifiersEl, fullSnapshot);
+    renderBracketSection(knockoutEl, fullSnapshot, actions);
+    renderChampionSection(championEl, fullSnapshot);
+  };
+
   store.subscribe(snapshot => {
     applyTheme(snapshot.state.theme);
     const flowId = captureFocusId(mainEl, "data-flow-id");
@@ -61,6 +90,14 @@ async function bootstrap() {
     if (flowId) restoreFocus(mainEl, "data-flow-id", flowId);
   });
 
+  onLangChange(() => {
+    const flowId = captureFocusId(mainEl, "data-flow-id");
+    const scrollY = window.scrollY;
+    renderAll();
+    if (window.scrollY !== scrollY) window.scrollTo({ top: scrollY, behavior: "instant" });
+    if (flowId) restoreFocus(mainEl, "data-flow-id", flowId);
+  });
+
   listenSystemTheme(newTheme => {
     if (!readTheme()) store.setTheme(newTheme);
   });
@@ -70,7 +107,7 @@ async function bootstrap() {
     setTimeout(() => startOnboarding(() => store.markOnboardingDone()), 800);
   }
 
-  announce("Simulador pronto.");
+  announce(t("app.ready"));
 }
 
 onReady(() => {
@@ -78,7 +115,7 @@ onReady(() => {
     console.error(err);
     const root = document.getElementById("mainContent");
     if (root) {
-      root.innerHTML = `<section class="section-panel"><h2>Erro ao carregar</h2><p class="muted">${err.message}</p></section>`;
+      root.innerHTML = `<section class="section-panel"><h2>${t("app.errorLoading")}</h2><p class="muted">${err.message}</p></section>`;
     }
   });
 });
