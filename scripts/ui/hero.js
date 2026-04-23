@@ -1,20 +1,6 @@
 import { teamLabel } from "../data/teams.js";
 
-const MACRO_LOGO = `
-<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <linearGradient id="macroM" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#5EE349"/>
-      <stop offset="1" stop-color="#039947"/>
-    </linearGradient>
-    <linearGradient id="macroS" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3E9DD6"/>
-      <stop offset="1" stop-color="#123B90"/>
-    </linearGradient>
-  </defs>
-  <path fill="url(#macroM)" d="M7 9 C 7 6 9 4 12 4 L 16 4 L 22 18 L 28 4 L 32 4 C 35 4 37 6 37 9 L 37 30 C 37 33 35 35 32 35 L 30 35 L 30 16 L 24 30 L 20 30 L 14 16 L 14 30 L 14 35 L 12 35 C 9 35 7 33 7 30 Z"/>
-  <path fill="url(#macroS)" d="M20 38 L 28 38 L 28 42 C 28 44 26 46 24 46 C 22 46 20 44 20 42 Z"/>
-</svg>`;
+const MACRO_LOGO = `<img src="assets/macro-markets-favicon.svg" alt="macro.markets" decoding="async" />`;
 
 const SUN_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>`;
 const MOON_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;

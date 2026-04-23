@@ -25,16 +25,16 @@
 }
 
 .hero-logo {
-  width: 44px;
   height: 44px;
-  border-radius: var(--r-md);
-  background: var(--accent);
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 }
-.hero-logo svg {
-  width: 28px;
-  height: 28px;
+.hero-logo svg,
+.hero-logo img {
+  height: 44px;
+  width: auto;
+  display: block;
 }
 
 .hero-titles {
@@ -409,6 +409,23 @@
 }
 .thirds-row .kicker {
   white-space: nowrap;
+}
+.thirds-row .team-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.thirds-row .team-cell .team-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+.thirds-row .team-cell .small {
+  white-space: nowrap;
+  color: var(--text-hint);
+  font-size: 0.7rem;
 }
 .thirds-row.is-qualified {
   background: var(--success-soft);
